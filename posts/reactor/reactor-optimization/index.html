@@ -1,0 +1,639 @@
+<!DOCTYPE html><html lang="zh-CN"> <!-- Global Metadata --><head><!-- Blocking theme script to prevent flash --><script>
+    (function() {
+      var theme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      if (theme === "dark") document.documentElement.classList.add("dark");
+    })();
+  </script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><!-- Favicon --><link rel="icon" type="image/jpeg" href="/laojun.jpg"><!-- Apple Touch Icon --><link rel="apple-touch-icon" sizes="180x180" href="/laojun.jpg"><!-- PWA Icons --><link rel="icon" type="image/jpeg" sizes="192x192" href="/laojun.jpg"><link rel="icon" type="image/jpeg" sizes="512x512" href="/laojun.jpg"><!-- PWA Manifest --><link rel="manifest" href="/manifest.json"><!-- Theme Color --><meta name="theme-color" content="#3F9C87"><meta name="msapplication-TileColor" content="#3F9C87"><meta name="generator" content="Astro v5.18.1"><!-- Primary Meta Tags --><title>AI写的AI渗透测试反思总结</title><meta name="title" content="AI写的AI渗透测试反思总结"><meta name="description" content><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://blog.wansh.xin/posts/reactor/reactor-optimization/"><meta property="og:title" content="AI写的AI渗透测试反思总结"><meta property="og:description" content><meta property="og:image" content="https://blog.wansh.xin/og-image.png"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://blog.wansh.xin/posts/reactor/reactor-optimization/"><meta property="twitter:title" content="AI写的AI渗透测试反思总结"><meta property="twitter:description" content><meta name="twitter:creator" content="@N0nome"><meta name="twitter:image" content="https://blog.wansh.xin/og-image.png"><!-- RSS Link --><link rel="alternate" type="application/rss+xml" title="N0nome" href="https://blog.wansh.xin/rss.xml"><!-- canonical url --><link rel="canonical" href="https://blog.wansh.xin/posts/reactor/reactor-optimization/"><!-- Sitemap --><link rel="sitemap" href="/sitemap-index.xml"><!-- pagefind --><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind.js"></script><script src="/pagefind/pagefind-ui.js" defer></script><!-- font  --><style>@font-face{font-family:"Space Grotesk-8e2368398fb36df3";src:url("/_astro/fonts/ced25f06cd1523a3.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Space Grotesk-8e2368398fb36df3 fallback: Arial";src:local("Arial");font-display:swap;font-weight:400;font-style:normal;size-adjust:109.6903%;ascent-override:89.7072%;descent-override:26.6204%;line-gap-override:0%;}:root{--font-display:"Space Grotesk-8e2368398fb36df3","Space Grotesk-8e2368398fb36df3 fallback: Arial",sans-serif;}</style><link rel="preload" href="/_astro/fonts/ced25f06cd1523a3.woff2" as="font" type="font/woff2" crossorigin><!-- View Transtions --><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><link rel="stylesheet" href="/_astro/_slug_.PGNbfF7Z.css">
+<link rel="stylesheet" href="/_astro/_slug_.CZKGlsKO.css"><style>[data-astro-transition-scope="astro-ekl2o7or-1"] { view-transition-name: main-container; }@layer astro { ::view-transition-old(main-container) { 
+	animation-duration: 90ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both, both;
+	animation-name: astroFadeOut, astroSlideToLeft; }::view-transition-new(main-container) { 
+	animation-duration: 210ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-delay: 30ms;
+	animation-fill-mode: both, both;
+	animation-name: astroFadeIn, astroSlideFromRight; }[data-astro-transition=back]::view-transition-old(main-container) { 
+	animation-name: astroFadeOut, astroSlideToRight; }[data-astro-transition=back]::view-transition-new(main-container) { 
+	animation-name: astroFadeIn, astroSlideFromLeft; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-ekl2o7or-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-ekl2o7or-1"] { 
+	animation-duration: 90ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both, both;
+	animation-name: astroFadeOut, astroSlideToLeft; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-ekl2o7or-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-ekl2o7or-1"] { 
+	animation-duration: 210ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-delay: 30ms;
+	animation-fill-mode: both, both;
+	animation-name: astroFadeIn, astroSlideFromRight; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-ekl2o7or-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-ekl2o7or-1"] { 
+	animation-name: astroFadeOut, astroSlideToRight; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-ekl2o7or-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-ekl2o7or-1"] { 
+	animation-name: astroFadeIn, astroSlideFromLeft; }</style></head><body class="flex min-h-screen items-center justify-center bg-background p-2 font-display text-foreground antialiased selection:bg-primary/20 md:p-6">  <meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"> <div class="article-view relative flex min-h-[100dvh] w-full max-w-[95vw] flex-col overflow-visible rounded-none border border-border bg-card shadow-main md:h-[88vh] md:min-h-0 md:flex-row md:overflow-hidden md:rounded-[2.5rem]" data-astro-cid-zm77yjld data-astro-transition-scope="astro-ekl2o7or-1"> <!-- Main Content Area (wider) --> <main class="order-1 flex flex-col items-center overflow-visible md:custom-scrollbar md:order-2 md:flex-1 md:overflow-x-hidden md:overflow-y-auto" data-astro-cid-zm77yjld> <div class="w-full" data-astro-cid-zm77yjld>  <article class="animate-in fade-in w-full overflow-visible px-6 py-6 duration-1000 md:custom-scrollbar md:h-full md:overflow-x-hidden md:overflow-y-auto md:px-12 md:py-8"> <header class="mb-16 border-b border-border/50 pb-12" data-pagefind-body> <div class="mb-6 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-primary uppercase"> <a href="/posts" class="hover:underline">Writing</a> <span class="text-muted-foreground/30">/</span> <span>Detail</span> </div> <h1 class="mb-8 text-3xl leading-[1.4] font-bold text-foreground md:text-4xl"> AI写的AI渗透测试反思总结 </h1> <div class="animate-in fade-in flex flex-wrap gap-2 font-mono text-[12px] tracking-tight duration-1000 md:gap-3"> <div class="flex items-center gap-3 rounded-full border border-border/40 bg-muted/40 px-3 py-1 text-muted-foreground"> <div class="flex items-center gap-1.5"> <svg width="1em" height="1em" data-icon="mdi:calendar-blank">   <symbol id="ai:mdi:calendar-blank" viewBox="0 0 24 24"><path fill="currentColor" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1"/></symbol><use href="#ai:mdi:calendar-blank"></use>  </svg> <span id="post-date" data-updated="Not updated">2026.05.25</span> </div> <span class="h-3 w-px bg-border"></span> <a href="/categories/random" class="flex cursor-pointer items-center gap-1.5 transition-colors hover:text-primary"> <svg width="1em" height="1em" data-icon="mdi:category-outline">   <symbol id="ai:mdi:category-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13.5v8H3v-8zm-2 2H5v4h4zM12 2l5.5 9h-11zm0 3.86L10.08 9h3.84zM17.5 13c2.5 0 4.5 2 4.5 4.5S20 22 17.5 22S13 20 13 17.5s2-4.5 4.5-4.5m0 2a2.5 2.5 0 0 0-2.5 2.5a2.5 2.5 0 0 0 2.5 2.5a2.5 2.5 0 0 0 2.5-2.5a2.5 2.5 0 0 0-2.5-2.5"/></symbol><use href="#ai:mdi:category-outline"></use>  </svg> <span>Random</span> </a> </div> <div class="flex items-center gap-4 rounded-full border border-border/20 bg-muted/20 px-3 py-1 text-muted-foreground/80"> <div class="flex items-center gap-1.5"> <span class="post-words-count">14473 </span> <span class="text-[10px] uppercase opacity-90">Words</span> </div> <div class="flex items-center gap-1.5"> <span class="artalk-pv-count" data-page-key="/posts/reactor/reactor-optimization/" class="font-bold text-foreground/80">-</span> <span class="text-[10px] uppercase opacity-90">Views</span> </div> <div class="flex items-center gap-1.5"> <span class="artalk-comment-count" data-page-key="/posts/reactor/reactor-optimization/" class="font-bold text-foreground/80">-</span> <span class="text-[10px] uppercase opacity-90">Comments</span> </div> </div> </div> </header> <div class="prose max-w-none dark:prose-invert prose-headings:tracking-tight prose-p:mb-8 prose-p:leading-loose prose-p:font-normal prose-p:text-muted-foreground prose-p:text-lg prose-blockquote:text-primary/70 dark:prose-blockquote:text-primary/60 prose-code:rounded-sm prose-code:bg-primary/15 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-primary prose-code:before:content-none prose-code:after:content-none prose-" data-pagefind-body> <blockquote>
+<p>基于 Cairn AI Agent 对 HTB Reactor 靶机的全自动渗透测试（2026-05-24）
+聊以慰藉吧 聊以慰藉吧</p>
+</blockquote>
+<h2 id="1-总览问题全景">1. 总览：问题全景</h2>
+<p>本次测试耗时 <strong>44 分钟</strong>、执行 <strong>19 个 Intents</strong>、产生 <strong>14 条 Facts</strong>，最终成功获取双 Flag。但过程中暴露出 6 类系统性问题：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>#</th><th>问题</th><th>严重度</th><th>浪费的时间</th></tr></thead><tbody><tr><td>P1</td><td>SSH 爆破死循环（方向偏执）</td><td>严重</td><td>~18 分钟</td></tr><tr><td>P2</td><td>Explore 全量超时（执行模型缺陷）</td><td>严重</td><td>每次 +5-60s</td></tr><tr><td>P3</td><td>Reason JSON 解析失败</td><td>中等</td><td>~1-2 分钟/次</td></tr><tr><td>P4</td><td>并行 Intents 大量冗余输出</td><td>中等</td><td>浪费并行槽位</td></tr><tr><td>P5</td><td>Bootstrap 价值密度低</td><td>低</td><td>~4 分钟</td></tr><tr><td>P6</td><td>事实噪音累积</td><td>低</td><td>增加 Reason 分析成本</td></tr></tbody></table>
+<p>如果不解决 P1-P2，即使是最简单的靶机也可能耗时 30 分钟以上。下面逐项分析。</p>
+<hr>
+<h2 id="2-p1方向偏执--agent-陷入-ssh-死循环">2. P1：方向偏执 — Agent 陷入 SSH 死循环</h2>
+<h3 id="现象">现象</h3>
+<p>Agent 在完成 Web 侦察（f003/f004/f005/f006，17:12 - 17:21）后，所有后续 Reason 周期都在围绕 SSH 爆破展开：</p>
+<div class="expressive-code"><link rel="stylesheet" href="/_astro/ec.bpbiv.css"><script type="module" src="/_astro/ec.0vx5m.js"></script><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:17:50 → i006: SSH brute-force with personnel names</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:23:58 → i009: SSH brute-force via Hydra again (expanded wordlists)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:28:18 → Reason triggered → still proposed SSH brute-force intent</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="19:17:50 → i006: SSH brute-force with personnel names19:23:58 → i009: SSH brute-force via Hydra again (expanded wordlists)19:28:18 → Reason triggered → still proposed SSH brute-force intent"><div></div></button></div></figure></div>
+<p>直到 <strong>19:28:28</strong> 注入 Hint “SSH brute-force is WRONG, focus on Next.js CVEs”，方向才被纠正。Agent 自主无法跳出这个循环。</p>
+<h3 id="根因">根因</h3>
+<ol>
+<li>
+<p><strong>Reason 缺少 “staleness detection”（僵局检测）</strong> 。当前 Reason prompt 中有一行：</p>
+<blockquote>
+<p>“If many intents have been explored but no new facts have been gained, reflect on whether the approach has drifted.”</p>
+</blockquote>
+<p>但这条规则的触发阈值太高——Agent 确实产生了新的 Facts（f007/f009/f012，都是 SSH 爆破的各种进度报告），但这些 Facts 没有实质性突破，却被计入了 <code>facts:N->N+1</code> 的触发条件。</p>
+</li>
+<li>
+<p><strong>Fact 质量与 Fact 数量混为一谈</strong>。SSH 爆破产生的 Facts 是纯进度报告（“prepared wordlists”、“Hydra launched”、“1,856 combinations, zero success”），不是突破。这些 “stale progress facts” 在图中占比增大后，反而强化了 “SSH 是可用的攻击向量” 这一错误认知。</p>
+</li>
+<li>
+<p><strong>初始错误结论的放大效应</strong>。f004/f005/f006 都明确写出 “SSH is the only remaining foothold vector”。这个结论被固化后，后续 Reason 将其视为确认信息而非待验证假设。</p>
+</li>
+</ol>
+<h3 id="改进方案">改进方案</h3>
+<p><strong>A. Reason 僵局检测升级（prompt 层面）</strong></p>
+<p>在 Reason prompt 中加入明确的死循环检测逻辑：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="markdown"><code><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--1:#256F74">## </span><span style="--0:#FFCB6B;--1:#8B5B12">Stalemate Detection (NEW)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--1:#256F74">-</span><span style="--0:#EEFFFF;--1:#5A676D"> Count how many consecutive intents target the SAME service/port/vector.</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#EEFFFF;--1:#5A676D">  </span></span><span style="--0:#EEFFFF;--1:#5A676D">If >= 3 intents targeting the same vector produced zero credential or shell facts,</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#EEFFFF;--1:#5A676D">  </span></span><span style="--0:#EEFFFF;--1:#5A676D">you MUST declare that vector EXHAUSTED and pivot to a completely different approach.</span></div></div><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--1:#256F74">-</span><span style="--0:#EEFFFF;--1:#5A676D"> "Progress facts" (wordlist preparation, tool setup, "attempted but not completed")</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#EEFFFF;--1:#5A676D">  </span></span><span style="--0:#EEFFFF;--1:#5A676D">do NOT count as positive signal. Only credential disclosure, shell access, or</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#EEFFFF;--1:#5A676D">  </span></span><span style="--0:#EEFFFF;--1:#5A676D">flag capture qualify as positive signal.</span></div></div><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--1:#256F74">-</span><span style="--0:#EEFFFF;--1:#5A676D"> If you find yourself proposing an intent that is substantially similar to a</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#EEFFFF;--1:#5A676D">  </span></span><span style="--0:#EEFFFF;--1:#5A676D">previously EXHAUSTED intent, you MUST explain why circumstances changed.</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#EEFFFF;--1:#5A676D">  </span></span><span style="--0:#EEFFFF;--1:#5A676D">If circumstances have NOT changed, do NOT propose it.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="- Count how many consecutive intents target the SAME service/port/vector.  If >= 3 intents targeting the same vector produced zero credential or shell facts,  you MUST declare that vector EXHAUSTED and pivot to a completely different approach.- &#x22;Progress facts&#x22; (wordlist preparation, tool setup, &#x22;attempted but not completed&#x22;)  do NOT count as positive signal. Only credential disclosure, shell access, or  flag capture qualify as positive signal.- If you find yourself proposing an intent that is substantially similar to a  previously EXHAUSTED intent, you MUST explain why circumstances changed.  If circumstances have NOT changed, do NOT propose it."><div></div></button></div></figure></div>
+<p><strong>B. Server 层面的意图去重（代码层面）</strong></p>
+<p>在 <code>scheduler/loop.py</code> 或 <code>tasks/reason.py</code> 中增加去重检查：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="python"><code><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 伪代码</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#9039C9">def</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#82AAFF;--1:#4C6690">is_duplicate_intent</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#EEFFFF;--0fs:italic;--1:#5A676D;--1fs:italic">new_intent</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#FFCB6B;--1:#8B5B12">str</span><span style="--0:#89DDFF;--1:#256F74">,</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#EEFFFF;--0fs:italic;--1:#5A676D;--1fs:italic">history</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> list</span><span style="--0:#89DDFF;--1:#256F74">[</span><span style="--0:#EEFFFF;--1:#5A676D">Intent</span><span style="--0:#89DDFF;--1:#256F74">])</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">-></span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#FFCB6B;--1:#8B5B12">bool</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">"""</span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic">检测新 Intent 是否与已完成的 Intent 实质重复</span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">"""</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">for</span><span style="--0:#EEFFFF;--1:#5A676D"> intent </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">in</span><span style="--0:#EEFFFF;--1:#5A676D"> history</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">if</span><span style="--0:#EEFFFF;--1:#5A676D"> intent</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#F07178;--1:#BE2F2C">to</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">is</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">not</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">None:</span><span style="--0:#EEFFFF;--1:#5A676D">  </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 已完成的</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#EEFFFF;--1:#5A676D">            </span></span><span style="--0:#EEFFFF;--1:#5A676D">similarity </span><span style="--0:#89DDFF;--1:#256F74">=</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#82AAFF;--1:#4C6690">embedding_similarity</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#82AAFF;--1:#4C6690">new_intent</span><span style="--0:#89DDFF;--1:#256F74">,</span><span style="--0:#82AAFF;--1:#4C6690"> intent</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#F07178;--1:#BE2F2C">description</span><span style="--0:#89DDFF;--1:#256F74">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">            </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">if</span><span style="--0:#EEFFFF;--1:#5A676D"> similarity </span><span style="--0:#89DDFF;--1:#256F74">></span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">0.85</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">                </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">return</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">True</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">return</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">False</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="def is_duplicate_intent(new_intent: str, history: list[Intent]) -> bool:    &#x22;&#x22;&#x22;检测新 Intent 是否与已完成的 Intent 实质重复&#x22;&#x22;&#x22;    for intent in history:        if intent.to is not None:  # 已完成的            similarity = embedding_similarity(new_intent, intent.description)            if similarity > 0.85:                return True    return False"><div></div></button></div></figure></div>
+<p>对 Easy 难度的靶机，去重可能是最有效的加速手段。</p>
+<p><strong>C. Fact 打标签（架构层面）</strong></p>
+<p>为 Facts 增加语义标签，区分 “progress” vs “breakthrough”：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="yaml"><code><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">facts</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#89DDFF;--1:#256F74">-</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F07178;--1:#BE2F2C">id</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">f007</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">type</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">progress</span><span style="--0:#EEFFFF;--1:#5A676D">        </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># SSH brute-force 进度更新</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#89DDFF;--1:#256F74">-</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F07178;--1:#BE2F2C">id</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">f014</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">type</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">breakthrough</span><span style="--0:#EEFFFF;--1:#5A676D">    </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># CVE-2025-66478 RCE shell</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="facts:  - id: f007    type: progress        # SSH brute-force 进度更新  - id: f014    type: breakthrough    # CVE-2025-66478 RCE shell"><div></div></button></div></figure></div>
+<p>Reason 在做决策时，可以只读 breakthrough facts 的数量变化，而不被 progress facts 的数量增长所欺骗。</p>
+<hr>
+<h2 id="3-p2explore-全量超时--执行模型的浪费">3. P2：Explore 全量超时 — 执行模型的浪费</h2>
+<h3 id="数据">数据</h3>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:10:43  Bootstrap timed out          (240s)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:16:26  i003/i004/i005 timed out     (240s × 3)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:21:51  i006/i007 timed out          (240s × 2)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:28:01  i009 timed out               (240s × 1)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:33:46  i010/i012 timed out          (240s × 2)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:36:53  i013/i014/i015 timed out     (240s × 3)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:42:34  i016/i017/i018 timed out     (240s × 3)</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="19:10:43  Bootstrap timed out          (240s)19:16:26  i003/i004/i005 timed out     (240s × 3)19:21:51  i006/i007 timed out          (240s × 2)19:28:01  i009 timed out               (240s × 1)19:33:46  i010/i012 timed out          (240s × 2)19:36:53  i013/i014/i015 timed out     (240s × 3)19:42:34  i016/i017/i018 timed out     (240s × 3)"><div></div></button></div></figure></div>
+<p><strong>统计</strong>：19 个 Explore 任务中，<strong>只有 2 个在超时前完成</strong>（i002: 75s, i008: 201s）。其余 17 个（89%）全部超时，触发 conclude fallback。</p>
+<h3 id="根因-1">根因</h3>
+<p>查看 <code>stdout_preview=</code> 全部为空。这说明 LLM（DeepSeek V4-Pro via Anthropic API）在 240s 内：</p>
+<ol>
+<li>接收上下文（prompt + graph snapshot）—— ~10-30s</li>
+<li>进行工具调用（nmap/curl/hydra 等）—— 剩余时间</li>
+<li>工具调用可能产生了输出，但由于模型正在 streaming 工具调用，没有写回 stdout</li>
+<li>240s 到达时，dispatcher 直接杀掉进程</li>
+</ol>
+<p><strong>Conclude fallback 反而产出了所有有效输出</strong>——f003-f019 几乎都是在 conclude phase（60s）中生成的。这意味着主执行阶段主要在做工具调用，而结构化总结是在 conclude 中完成的。</p>
+<h3 id="改进方案-1">改进方案</h3>
+<p><strong>A. 缩短 execute 超时 + 延长 conclude 超时（配置层面）</strong></p>
+<p>当前配置：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="yaml"><code><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">explore</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">240</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">conclude_timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">60</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="explore:  timeout: 240  conclude_timeout: 60"><div></div></button></div></figure></div>
+<p>建议调整为：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="yaml"><code><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">explore</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">120</span><span style="--0:#EEFFFF;--1:#5A676D">      </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 工具调用阶段：2 分钟足够完成大部分操作</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">conclude_timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">120</span><span style="--0:#EEFFFF;--1:#5A676D">  </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 增加总结容量：让 LLM 有更长时间分析输出</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="explore:  timeout: 120      # 工具调用阶段：2 分钟足够完成大部分操作  conclude_timeout: 120  # 增加总结容量：让 LLM 有更长时间分析输出"><div></div></button></div></figure></div>
+<p>理由：</p>
+<ul>
+<li>120s 工具调用时间减少浪费（如果 2 分钟没出结果，大概率方向不对）</li>
+<li>120s conclude 时间给 LLM 足够的时间分析工具输出、识别关键发现</li>
+<li>总时间不变（240s），但更合理分配</li>
+</ul>
+<p><strong>B. 动态超时（架构层面）</strong></p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="python"><code><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 根据任务类型和当前状态动态调整超时</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#9039C9">def</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#82AAFF;--1:#4C6690">dynamic_timeout</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#EEFFFF;--0fs:italic;--1:#5A676D;--1fs:italic">intent_type</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#FFCB6B;--1:#8B5B12">str</span><span style="--0:#89DDFF;--1:#256F74">,</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#EEFFFF;--0fs:italic;--1:#5A676D;--1fs:italic">facts</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> list</span><span style="--0:#89DDFF;--1:#256F74">[</span><span style="--0:#EEFFFF;--1:#5A676D">Fact</span><span style="--0:#89DDFF;--1:#256F74">])</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">-></span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#FFCB6B;--1:#8B5B12">int</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">if</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#82AAFF;--1:#4C6690">intent_is_complex</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#82AAFF;--1:#4C6690">intent_type</span><span style="--0:#89DDFF;--1:#256F74">):</span><span style="--0:#EEFFFF;--1:#5A676D">  </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 如 "enumerate all ports"</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">return</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">180</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">if</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#82AAFF;--1:#4C6690">has_credential</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#82AAFF;--1:#4C6690">facts</span><span style="--0:#89DDFF;--1:#256F74">):</span><span style="--0:#EEFFFF;--1:#5A676D">  </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 已有凭据，下一步可能很快</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">return</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">90</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">return</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">120</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="def dynamic_timeout(intent_type: str, facts: list[Fact]) -> int:    if intent_is_complex(intent_type):  # 如 &#x22;enumerate all ports&#x22;        return 180    if has_credential(facts):  # 已有凭据，下一步可能很快        return 90    return 120"><div></div></button></div></figure></div>
+<p><strong>C. Streaming 输出捕获（代码层面）</strong></p>
+<p>当前实现只捕获最终的 stdout。如果能每次工具调用后立即写回部分结果（progress report），dispatcher 可以在 timeout 前就得到有用的内容：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="python"><code><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># tasks/common.py 中增加 streaming 支持</span></div></div><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># Worker 每完成一个工具调用，就向 server 写入 partial fact</span></div></div><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># Dispatcher 在 timeout 时可以直接使用最后一个 partial fact</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code=""><div></div></button></div></figure></div>
+<hr>
+<h2 id="4-p3reason-json-解析失败">4. P3：Reason JSON 解析失败</h2>
+<h3 id="现象-1">现象</h3>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#eeffff;--1:#5a676d">19:11:50  WARNING  reason parse failed</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">          </span></span><span style="--0:#eeffff;--1:#5a676d">error=no JSON object found in output</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#eeffff;--1:#5a676d">          </span></span><span style="--0:#eeffff;--1:#5a676d">stdout_preview=The JSON response has been output above...</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="19:11:50  WARNING  reason parse failed          error=no JSON object found in output          stdout_preview=The JSON response has been output above..."><div></div></button></div></figure></div>
+<p>LLM 在 JSON 之前输出了解释性文本（“The JSON response has been output above…”），导致 <code>output_parser.py</code> 的 JSON 提取失败。触发了一次完整的重试（53s 浪费）。</p>
+<h3 id="根因-2">根因</h3>
+<p>当前 parser 逻辑可能使用了简单的 regex 提取（如匹配第一个 <code>{</code> 到最后一个 <code>}</code>），但 LLM 在 JSON block 外输出了 preamble text。这在新版 DeepSeek V4-Pro 中尤其常见——模型倾向于输出 “thinking” 文本再给 JSON。</p>
+<h3 id="改进方案-2">改进方案</h3>
+<p><strong>A. Parser 增强（代码层面）</strong></p>
+<div class="expressive-code"><figure class="frame is-terminal has-title"><figcaption class="header"><span class="title">output_parser.py</span></figcaption><pre data-language="python"><code><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">import</span><span style="--0:#EEFFFF;--1:#5A676D"> re</span></div></div><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">import</span><span style="--0:#EEFFFF;--1:#5A676D"> json</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#9039C9">def</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#82AAFF;--1:#4C6690">extract_json</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#EEFFFF;--0fs:italic;--1:#5A676D;--1fs:italic">text</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#FFCB6B;--1:#8B5B12">str</span><span style="--0:#89DDFF;--1:#256F74">)</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">-></span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#FFCB6B;--1:#8B5B12">dict</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">|</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">None:</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">"""</span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic">多层回退 JSON 提取</span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">"""</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># Level 1: 直接解析</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">try</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">return</span><span style="--0:#EEFFFF;--1:#5A676D"> json</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">loads</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#82AAFF;--1:#4C6690">text</span><span style="--0:#89DDFF;--1:#256F74">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">except</span><span style="--0:#EEFFFF;--1:#5A676D"> json</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#F07178;--1:#BE2F2C">JSONDecodeError</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">pass</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># Level 2: 提取 ```json ... ``` block</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#EEFFFF;--1:#5A676D">    </span></span><span style="--0:#EEFFFF;--1:#5A676D">m </span><span style="--0:#89DDFF;--1:#256F74">=</span><span style="--0:#EEFFFF;--1:#5A676D"> re</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">search</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#C792EA;--1:#9039C9">r</span><span style="--0:#89DDFF;--1:#256F74">'</span><span style="--0:#C3E88D;--1:#566D35">```json\s</span><span style="--0:#89DDFF;--1:#256F74">*(</span><span style="--0:#C3E88D;--1:#566D35">.</span><span style="--0:#89DDFF;--1:#256F74">*?)</span><span style="--0:#C3E88D;--1:#566D35">\s</span><span style="--0:#89DDFF;--1:#256F74">*</span><span style="--0:#C3E88D;--1:#566D35">```</span><span style="--0:#89DDFF;--1:#256F74">'</span><span style="--0:#89DDFF;--1:#256F74">,</span><span style="--0:#82AAFF;--1:#4C6690"> text</span><span style="--0:#89DDFF;--1:#256F74">,</span><span style="--0:#82AAFF;--1:#4C6690"> re</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#F07178;--1:#BE2F2C">DOTALL</span><span style="--0:#89DDFF;--1:#256F74">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">if</span><span style="--0:#EEFFFF;--1:#5A676D"> m</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">try</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">            </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">return</span><span style="--0:#EEFFFF;--1:#5A676D"> json</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">loads</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#82AAFF;--1:#4C6690">m</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">group</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#F78C6C;--1:#A64930">1</span><span style="--0:#89DDFF;--1:#256F74">))</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">except</span><span style="--0:#EEFFFF;--1:#5A676D"> json</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#F07178;--1:#BE2F2C">JSONDecodeError</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">            </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">pass</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># Level 3: 提取最外层 { ... }</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#EEFFFF;--1:#5A676D">    </span></span><span style="--0:#EEFFFF;--1:#5A676D">m </span><span style="--0:#89DDFF;--1:#256F74">=</span><span style="--0:#EEFFFF;--1:#5A676D"> re</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">search</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#C792EA;--1:#9039C9">r</span><span style="--0:#89DDFF;--1:#256F74">'</span><span style="--0:#EEFFFF;--1:#5A676D">\{</span><span style="--0:#C3E88D;--1:#566D35">.</span><span style="--0:#89DDFF;--1:#256F74">*</span><span style="--0:#EEFFFF;--1:#5A676D">\}</span><span style="--0:#89DDFF;--1:#256F74">'</span><span style="--0:#89DDFF;--1:#256F74">,</span><span style="--0:#82AAFF;--1:#4C6690"> text</span><span style="--0:#89DDFF;--1:#256F74">,</span><span style="--0:#82AAFF;--1:#4C6690"> re</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#F07178;--1:#BE2F2C">DOTALL</span><span style="--0:#89DDFF;--1:#256F74">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">if</span><span style="--0:#EEFFFF;--1:#5A676D"> m</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">try</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">            </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">return</span><span style="--0:#EEFFFF;--1:#5A676D"> json</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">loads</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#82AAFF;--1:#4C6690">m</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#82AAFF;--1:#4C6690">group</span><span style="--0:#89DDFF;--1:#256F74">(</span><span style="--0:#F78C6C;--1:#A64930">0</span><span style="--0:#89DDFF;--1:#256F74">))</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">except</span><span style="--0:#EEFFFF;--1:#5A676D"> json</span><span style="--0:#89DDFF;--1:#256F74">.</span><span style="--0:#F07178;--1:#BE2F2C">JSONDecodeError</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">            </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">pass</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># Level 4: 尝试修复常见错误（如尾部逗号、单引号）</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># ...</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#89DDFF;--0fs:italic;--1:#256F74;--1fs:italic">return</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">None</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="import reimport jsondef extract_json(text: str) -> dict | None:    &#x22;&#x22;&#x22;多层回退 JSON 提取&#x22;&#x22;&#x22;    try:        return json.loads(text)    except json.JSONDecodeError:        pass    m = re.search(r&#x27;&#x60;&#x60;&#x60;json\s*(.*?)\s*&#x60;&#x60;&#x60;&#x27;, text, re.DOTALL)    if m:        try:            return json.loads(m.group(1))        except json.JSONDecodeError:            pass    m = re.search(r&#x27;\{.*\}&#x27;, text, re.DOTALL)    if m:        try:            return json.loads(m.group(0))        except json.JSONDecodeError:            pass    return None"><div></div></button></div></figure></div>
+<p><strong>B. Prompt 强化</strong></p>
+<p>在 prompt 末尾加更严格的输出约束：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="markdown"><code><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--1:#256F74"># </span><span style="--0:#FFCB6B;--1:#8B5B12">CRITICAL OUTPUT RULE</span></div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">Your ENTIRE response must be ONLY the JSON object. No preamble, no markdown code fences,</span></div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">no "Here is my analysis" or "The JSON has been output above".</span></div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">The FIRST character of your response must be '{', the LAST character must be '}'.</span></div></div><div class="ec-line"><div class="code"><span style="--0:#EEFFFF;--1:#5A676D">If you output ANY text outside the JSON, the task will FAIL and must be retried.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Your ENTIRE response must be ONLY the JSON object. No preamble, no markdown code fences,no &#x22;Here is my analysis&#x22; or &#x22;The JSON has been output above&#x22;.The FIRST character of your response must be &#x27;{&#x27;, the LAST character must be &#x27;}&#x27;.If you output ANY text outside the JSON, the task will FAIL and must be retried."><div></div></button></div></figure></div>
+<hr>
+<h2 id="5-p4并行-intents-冗余--web-分析四重奏">5. P4：并行 Intents 冗余 — Web 分析四重奏</h2>
+<h3 id="现象-2">现象</h3>
+<p>第一轮 Reason（19:12:23）创建了 4 个 Intent，其中 3 个都指向 Web 分析：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Intent</th><th>任务</th><th>结论</th></tr></thead><tbody><tr><td>i003</td><td>Web 目录爆破</td><td>无隐藏端点</td></tr><tr><td>i004</td><td>手动 Web 探索</td><td>静态 decoy</td></tr><tr><td>i005</td><td>漏洞搜索</td><td>无公开 PoC</td></tr></tbody></table>
+<p>这三个 Intent 产出的 Facts（f003/f004/f005）核心结论完全一致：“Web 应用是静态 decoy，无利用价值”。</p>
+<h3 id="根因-3">根因</h3>
+<p><code>max_intents: 4</code> 的配置迫使 Reason 生成 4 个探索方向，但当攻击面只有 2 个服务（SSH + Web）时，Agent 只能把一个 Web 分析拆成 3 个略有不同的角度（目录爆破、手动探索、漏洞搜索）。</p>
+<h3 id="改进方案-3">改进方案</h3>
+<p><strong>A. 降低 max_intents（配置层面）</strong></p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="yaml"><code><div class="ec-line"><div class="code"><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 对 Easy 难度靶机</span></div></div><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">reason</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">max_intents</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">2</span><span style="--0:#EEFFFF;--1:#5A676D">  </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 从 4 降到 2，减少冗余</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="reason:  max_intents: 2  # 从 4 降到 2，减少冗余"><div></div></button></div></figure></div>
+<p><strong>B. Reason 阶段去重（prompt 层面）</strong></p>
+<p>在 Reason prompt 中加入覆盖度检测：</p>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="markdown"><code><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--1:#256F74">-</span><span style="--0:#EEFFFF;--1:#5A676D"> Before proposing a new intent, check:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#89DDFF;--1:#256F74">1.</span><span style="--0:#EEFFFF;--1:#5A676D"> Does this direction overlap >50% with an existing Open or recently completed Intent?</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#89DDFF;--1:#256F74">2.</span><span style="--0:#EEFFFF;--1:#5A676D"> If so, incorporate only the non-overlapping portion, or skip.</span></div></div><div class="ec-line"><div class="code"><span style="--0:#89DDFF;--1:#256F74">-</span><span style="--0:#EEFFFF;--1:#5A676D"> Each intent MUST have a clearly distinguishable outcome from all other active intents.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="- Before proposing a new intent, check:  1. Does this direction overlap >50% with an existing Open or recently completed Intent?  2. If so, incorporate only the non-overlapping portion, or skip.- Each intent MUST have a clearly distinguishable outcome from all other active intents."><div></div></button></div></figure></div>
+<p><strong>C. 智能合并（架构层面）</strong></p>
+<p>当检测到 3 个 Facts 都是从不同角度描述同一结论时，自动合并为一个复合 Fact，减少噪音。</p>
+<hr>
+<h2 id="6-p5bootstrap-效率低">6. P5：Bootstrap 效率低</h2>
+<h3 id="现象-3">现象</h3>
+<p>Bootstrap 阶段 240s 产出了一个 Fact（f001）——端口扫描结果。这个信息量对应的合理执行时间大约 30-60s。</p>
+<h3 id="改进方案-4">改进方案</h3>
+<div class="expressive-code"><figure class="frame is-terminal"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="yaml"><code><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">bootstrap</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">120</span><span style="--0:#EEFFFF;--1:#5A676D">     </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 从 240 降到 120</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">conclude_timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">60</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="bootstrap:  timeout: 120     # 从 240 降到 120  conclude_timeout: 60"><div></div></button></div></figure></div>
+<p>对于 Easy 靶机，Bootstrap 不需要深度分析——只需要基本端口扫描 + 服务识别。深度分析留给 Explore 阶段。</p>
+<hr>
+<h2 id="7-p6事实噪音累积">7. P6：事实噪音累积</h2>
+<h3 id="现象-4">现象</h3>
+<p>14 条 Facts 中，只有 6 条包含实质性突破信息：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>实质性</th><th>噪音</th></tr></thead><tbody><tr><td>f001 (端口扫描)</td><td>f002 (DNS 无果)</td></tr><tr><td>f014 (React2Shell RCE)</td><td>f003-f006 (Web decoy × 4)</td></tr><tr><td>f016 (凭据 + user flag)</td><td>f007/f009/f012 (SSH 进度 × 3)</td></tr><tr><td>f019 (Inspector RCE + root flag)</td><td>f008 (UDP 无果)</td></tr><tr><td></td><td>f013/f015 (CVE 无果 × 2)</td></tr></tbody></table>
+<p>噪音率 = 8/14 = <strong>57%</strong>。噪音 Facts 不仅占用存储，更重要的是混淆了 Reason 的判断——每次 <code>facts:N->N+1</code> 都触发一次 Reason 重评估，即使这个 Fact 只是 “SSH 爆破 1856 次零成功”。</p>
+<h3 id="改进方案-5">改进方案</h3>
+<p><strong>A. 事实合并策略</strong></p>
+<p>相同结论来源的 Facts 应该被合并：</p>
+<ul>
+<li>f003 + f004 + f005 + f006 → 单条 Fact “Web 应用分析：静态 decoy，无利用价值（经 4 方向验证）”</li>
+<li>f007 + f009 + f012 → 单条 Fact “SSH 爆破：1856 尝试，零成功，建议放弃”</li>
+</ul>
+<p><strong>B. 噪音过滤</strong></p>
+<p>Reason 在评估时跳过标记为 <code>type: progress</code> 或 <code>type: exhausted</code> 的 Facts（见 P1-C 的 Fact 标签方案）。</p>
+<hr>
+<h2 id="8-综合优化配置">8. 综合优化配置</h2>
+<p>基于以上分析，针对 Easy 难度靶机的推荐配置：</p>
+<div class="expressive-code"><figure class="frame is-terminal has-title"><figcaption class="header"><span class="title">dispatch_htb_easy.yaml</span></figcaption><pre data-language="yaml"><code><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">server</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">http://0.0.0.0:8000</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">common_env</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">TSEC_SERVER_HOST</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">0.0.0.0:8000</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">TSEC_AGENT_TOKEN</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">xxx</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">runtime</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">interval</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">2</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">max_workers</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">8</span><span style="--0:#EEFFFF;--1:#5A676D">        </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># Easy 靶机不需要 16</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">max_running_projects</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">4</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">max_project_workers</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">4</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">tasks</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">bootstrap</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">120</span><span style="--0:#EEFFFF;--1:#5A676D">          </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 从 240 → 120</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">conclude_timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">60</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">reason</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">90</span><span style="--0:#EEFFFF;--1:#5A676D">           </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 从 120 → 90</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">max_intents</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">2</span><span style="--0:#EEFFFF;--1:#5A676D">        </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 从 4 → 2（减少冗余）</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">explore</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">120</span><span style="--0:#EEFFFF;--1:#5A676D">          </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 从 240 → 120（工具调用）</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">conclude_timeout</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">120</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#979797;--0fs:italic;--1:#5A676D;--1fs:italic"># 从 60 → 120（分析输出）</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">container</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">image</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">cairn-worker-htb:latest</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">network_mode</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">host</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#F07178;--1:#BE2F2C">completed_action</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">stop</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#F07178;--1:#BE2F2C">workers</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#89DDFF;--1:#256F74">-</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F07178;--1:#BE2F2C">name</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">claudecode_deepseek-v4-pro</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">type</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">claudecode</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">task_types</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">[</span><span style="--0:#C3E88D;--1:#566D35">bootstrap</span><span style="--0:#89DDFF;--1:#256F74">,</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">reason</span><span style="--0:#89DDFF;--1:#256F74">,</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#C3E88D;--1:#566D35">explore</span><span style="--0:#89DDFF;--1:#256F74">]</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">max_running</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">4</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">priority</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#F78C6C;--1:#A64930">0</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#F07178;--1:#BE2F2C">env</span><span style="--0:#89DDFF;--1:#256F74">:</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#F07178;--1:#BE2F2C">ANTHROPIC_MODEL</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">deepseek-v4-pro</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#F07178;--1:#BE2F2C">ANTHROPIC_BASE_URL</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">https://api.deepseek.com/anthropic</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#F07178;--1:#BE2F2C">ANTHROPIC_AUTH_TOKEN</span><span style="--0:#89DDFF;--1:#256F74">:</span><span style="--0:#EEFFFF;--1:#5A676D"> </span><span style="--0:#89DDFF;--1:#256F74">"</span><span style="--0:#C3E88D;--1:#566D35">sk-xxx</span><span style="--0:#89DDFF;--1:#256F74">"</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="server: &#x22;http://0.0.0.0:8000&#x22;common_env:  TSEC_SERVER_HOST: &#x22;0.0.0.0:8000&#x22;  TSEC_AGENT_TOKEN: &#x22;xxx&#x22;runtime:  interval: 2  max_workers: 8        # Easy 靶机不需要 16  max_running_projects: 4  max_project_workers: 4tasks:  bootstrap:    timeout: 120          # 从 240 → 120    conclude_timeout: 60  reason:    timeout: 90           # 从 120 → 90    max_intents: 2        # 从 4 → 2（减少冗余）  explore:    timeout: 120          # 从 240 → 120（工具调用）    conclude_timeout: 120 # 从 60 → 120（分析输出）container:  image: &#x22;cairn-worker-htb:latest&#x22;  network_mode: &#x22;host&#x22;  completed_action: &#x22;stop&#x22;workers:  - name: &#x22;claudecode_deepseek-v4-pro&#x22;    type: &#x22;claudecode&#x22;    task_types: [bootstrap, reason, explore]    max_running: 4    priority: 0    env:      ANTHROPIC_MODEL: &#x22;deepseek-v4-pro&#x22;      ANTHROPIC_BASE_URL: &#x22;https://api.deepseek.com/anthropic&#x22;      ANTHROPIC_AUTH_TOKEN: &#x22;sk-xxx&#x22;"><div></div></button></div></figure></div>
+<h3 id="预期效果估算">预期效果估算</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>指标</th><th>当前</th><th>优化后（预计）</th></tr></thead><tbody><tr><td>Bootstrap</td><td>240s</td><td>120-180s</td></tr><tr><td>探索轮数</td><td>6 轮</td><td>3-4 轮（去重）</td></tr><tr><td>每轮并行数</td><td>3-4</td><td>2（减少冗余）</td></tr><tr><td>Timeout 浪费</td><td>15 × 30s avg</td><td>5 × 15s avg</td></tr><tr><td>死循环检测</td><td>无（需人工 Hint）</td><td>3 次同向量自动放弃</td></tr><tr><td><strong>预计总耗时</strong></td><td><strong>44 分钟</strong></td><td><strong>15-20 分钟</strong></td></tr></tbody></table>
+<hr>
+<h2 id="9-实施优先级">9. 实施优先级</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>优先级</th><th>改动</th><th>改动量</th><th>收益</th></tr></thead><tbody><tr><td><strong>P0</strong></td><td>Parser 增强（JSON 多层提取）</td><td>30 行 Python</td><td>消除解析重试</td></tr><tr><td><strong>P0</strong></td><td>Reason prompt 僵局检测</td><td>10 行 prompt</td><td>消除 SSH 死循环</td></tr><tr><td><strong>P1</strong></td><td>explore timeout 120s + conclude 120s</td><td>配置修改</td><td>减少超时浪费</td></tr><tr><td><strong>P1</strong></td><td>max_intents 从 4 → 2</td><td>配置修改</td><td>减少冗余输出</td></tr><tr><td><strong>P2</strong></td><td>bootstrap timeout 120s</td><td>配置修改</td><td>加速启动</td></tr><tr><td><strong>P2</strong></td><td>Fact 标签机制</td><td>架构改动</td><td>长期收益</td></tr><tr><td><strong>P3</strong></td><td>Streaming 输出捕获</td><td>架构改动</td><td>减少超时损失</td></tr><tr><td><strong>P3</strong></td><td>智能 Fact 合并</td><td>架构改动</td><td>减少噪音</td></tr></tbody></table>
+<hr>
+<h2 id="10-对-cairn-架构的启发">10. 对 Cairn 架构的启发</h2>
+<p>这次测试暴露的核心矛盾是：<strong>Agent 的 “显式理性”（基于 Facts 的推理）和 “隐式局限”（模型无法跳出自己构建的叙事框架）之间的张力。</strong></p>
+<p>具体来说：</p>
+<ol>
+<li>当 Agent 自己写出了 “SSH is the only foothold vector” 这条 Fact 后，它在后续 Reason 中把这个推论当作已确认的前提，而不是一个待验证的假设</li>
+<li>Hint 机制的完美工作证明了：有时只需要一个外部的小扰动，就能打破 Agent 的自我强化循环</li>
+<li>但在没有外部 Hint 的情况下，Agent 缺少内生的 “自我怀疑” 机制</li>
+</ol>
+<p>可能的架构改进方向：</p>
+<ul>
+<li><strong>Devil’s Advocate Agent</strong>：一个独立的 “质疑 Agent”，专门挑战当前的共识结论</li>
+<li><strong>回溯机制</strong>：当检测到 3 次零输出，自动回溯把之前的结论标记为 <code>assumption</code> 而非 <code>fact</code></li>
+<li><strong>Fact 置信度</strong>：每一条 Fact 带有置信度分数，推论链上的 Fact 需要定期重新验证</li>
+</ul>
+<hr>
+<h2 id="11-实施状态2026-05-24">11. 实施状态（2026-05-24）</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>优先级</th><th>改动</th><th>文件</th><th>状态</th></tr></thead><tbody><tr><td><strong>P0</strong></td><td>JSON 多层提取 parser</td><td><code>output_parser.py</code></td><td>✅ 已实施</td></tr><tr><td><strong>P0</strong></td><td>Reason prompt 僵局检测 + 去重</td><td><code>prompts/htb/reason.md</code></td><td>✅ 已实施</td></tr><tr><td><strong>P1</strong></td><td>explore timeout 120s + conclude 120s</td><td><code>dispatch_htb.yaml</code></td><td>✅ 已实施</td></tr><tr><td><strong>P1</strong></td><td>max_intents 从 4 → 2</td><td><code>dispatch_htb.yaml</code></td><td>✅ 已实施</td></tr><tr><td><strong>P1</strong></td><td>输出约束强化（所有 prompt）</td><td><code>reason.md</code>, <code>explore.md</code>, <code>bootstrap.md</code></td><td>✅ 已实施</td></tr><tr><td><strong>P2</strong></td><td>bootstrap timeout 120s</td><td><code>dispatch_htb.yaml</code></td><td>✅ 已实施</td></tr><tr><td><strong>P1</strong></td><td>服务器端 Intent 去重</td><td><code>tasks/dedup.py</code>, <code>tasks/reason.py</code></td><td>✅ 已实施</td></tr><tr><td><strong>P1</strong></td><td>Breakthrough Fact 检测 + 智能 Reason 触发</td><td><code>tasks/fact_quality.py</code>, <code>scheduler/loop.py</code></td><td>✅ 已实施</td></tr><tr><td><strong>P1</strong></td><td>Graph YAML Fact 质量标注</td><td><code>tasks/reason.py</code></td><td>✅ 已实施</td></tr><tr><td><strong>P2</strong></td><td>Conclude prompt 传递原始输出</td><td><code>tasks/common.py</code>, <code>tasks/explore.py</code>, <code>tasks/bootstrap.py</code></td><td>✅ 已实施</td></tr><tr><td><strong>P3</strong></td><td>Streaming 输出捕获</td><td>架构改动</td><td>⏳ 待实施</td></tr></tbody></table>
+<h3 id="改动详情">改动详情</h3>
+<p><strong>1. <code>output_parser.py</code></strong> — 增加 Layer 3 balanced-brace 回退</p>
+<ul>
+<li>原问题：LLM 在 JSON 前输出 preamble 文本导致解析失败</li>
+<li>改动：新增 <code>PRE_JSON_BOUNDARY_RE</code> regex 和 <code>_balanced_brace_span()</code> 函数，从任意前导文本中提取首个平衡的 <code>{...}</code> 块</li>
+<li>效果：消除 “no JSON object found” 解析重试，节省 ~53s/次</li>
+</ul>
+<p><strong>2. <code>prompts/htb/reason.md</code></strong> — 僵局检测 + 去重 + 输出约束</p>
+<ul>
+<li>原问题：SSH 爆破死循环（18 分钟，1856 次尝试零成功）</li>
+<li>改动 A：新增 Stalemate Detection 规则 — 同一向量连续 3 次零突破 → EXHAUSTED，必须切换方向</li>
+<li>改动 B：增强 Deduplication Check — 对已完成且结论为负面的 Intent 禁止重复提出，Web 场景引导至 CVE 研究</li>
+<li>改动 C：输出约束 — FIRST char <code>{</code>，LAST char <code>}</code>，禁止 preamble/trailing explanations</li>
+</ul>
+<p><strong>3. <code>prompts/htb/explore.md</code> &#x26; <code>bootstrap.md</code></strong> — 输出约束对齐</p>
+<ul>
+<li>改动：统一使用与 reason.md 相同的严格输出约束（FIRST <code>{</code> / LAST <code>}</code>）</li>
+<li>效果：三个 prompt 输出规范一致，消除所有任务类型的 JSON 解析失败风险</li>
+</ul>
+<p><strong>4. <code>dispatch_htb.yaml</code></strong> — 超时 + 并行优化</p>
+<ul>
+<li><code>max_workers: 16 → 8</code>、<code>max_running_projects: 8 → 4</code>、<code>max_project_workers: 8 → 4</code></li>
+<li><code>bootstrap timeout: 240 → 120</code></li>
+<li><code>reason timeout: 120 → 90</code>、<code>max_intents: 4 → 2</code></li>
+<li><code>explore timeout: 240 → 120</code>、<code>conclude_timeout: 60 → 120</code></li>
+<li>效果：减少超时浪费（原 89% 超时率），减少冗余并行 Intent</li>
+</ul>
+<p><strong>5. <code>tasks/dedup.py</code> + <code>tasks/reason.py</code></strong> — Intent 服务器端去重</p>
+<ul>
+<li>原问题：多个 Intent 重复探索同一方向（如 SSH 爆破变体、Web 分析四重奏）</li>
+<li>改动：新增 <code>is_duplicate_intent()</code> — 基于 token 签名相似度（阈值 0.4），在 Reason task 创建 Intent 前过滤重复 Intent</li>
+<li>相似度计算：分词 + port_XXX 特殊 token，Jaccard 相似度</li>
+<li>效果：避免重复探索浪费并行槽位，Reason 创建 Intent 为空时区分”全被去重”vs”真的失败”</li>
+</ul>
+<p><strong>6. <code>tasks/fact_quality.py</code> + <code>scheduler/loop.py</code></strong> — Breakthrough Fact 检测 + 智能 Reason 触发</p>
+<ul>
+<li>原问题：进度 Fact 累积（wordlist prepared, Hydra launched）触发无意义的 Reason 重评估，每次 Reason 产生的新 Facts 都是噪音</li>
+<li>改动 A：新增 <code>classify_fact_quality()</code> — breakthrough / negative / progress 三级分类，breakthrough 含凭据/Shell/Flag/CVE，negative 含 “no found”/decoy/blocked</li>
+<li>改动 B：<code>_reason_trigger()</code> 增强 — 只包含 breakthrough Facts 时立即触发Reason；连续 3 个以上非 breakthrough Facts 才触发（积累检测）；连续 breakthrough → 重置噪音计数器</li>
+<li>效果：减少被噪音 Fact 触发的无效 Reason 循环</li>
+</ul>
+<p><strong>7. <code>tasks/reason.py</code> + <code>prompts/htb/reason.md</code></strong> — Graph YAML 质量标注</p>
+<ul>
+<li>改动 A：<code>_annotate_graph_yaml()</code> — 对 Fact 添加 <code>_quality: breakthrough | negative</code> 字段</li>
+<li>改动 B：Reason prompt 新增 Fact quality annotations 说明 — 引导 Agent 优先使用 breakthrough facts，negative facts 作为转向信号</li>
+<li>效果：让 Reason Agent 在分析图谱时能够区分关键发现和噪音</li>
+</ul>
+<p><strong>8. <code>tasks/common.py</code> + <code>tasks/explore.py</code> + <code>tasks/bootstrap.py</code></strong> — Conclude 传递原始输出</p>
+<ul>
+<li>原问题：Explore 超时后，conclude phase 看不到之前 tool calls 的原始 stdout，只能基于空 context 总结</li>
+<li>改动：超时/解析失败时，conclude fallback 接收 <code>raw_stdout</code>，通过 <code>format_raw_output_context()</code> 将最后 3000 字符注入 conclude prompt</li>
+<li>新增 placeholder：<code>{raw_output_context}</code> — 注入 conclude prompt 的 explore_conclude.md / bootstrap_conclude.md</li>
+<li>效果：conclude phase 有原始输出可参考，不因超时丢失所有发现</li>
+</ul>
+<h3 id="预期效果">预期效果</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>指标</th><th>优化前</th><th>优化后（预计）</th></tr></thead><tbody><tr><td>user.txt</td><td>~20 分钟</td><td>&#x3C; 5 分钟</td></tr><tr><td>root.txt</td><td>~44 分钟</td><td>&#x3C; 10 分钟</td></tr><tr><td>Reason 解析失败率</td><td>~25%</td><td>&#x3C; 2%</td></tr><tr><td>SSH 死循环</td><td>需人工 Hint</td><td>3 次后自动放弃</td></tr><tr><td>每轮冗余 Intent</td><td>3-4 个</td><td>≤ 2 个</td></tr><tr><td>服务器端 Intent 重复</td><td>无检测</td><td>Token 相似度过滤</td></tr><tr><td>无效 Reason 触发</td><td>每个 Fact 变化触发</td><td>Breakthrough 优先，噪音积累检测</td></tr><tr><td>Conclude 超时损失</td><td>0 输出 → 空总结</td><td>传递原始 stdout 3000 字符</td></tr></tbody></table>
+<p><em>分析基于 Cairn dispatcher log + project proj_005 Fact Graph 完整数据。</em></p> </div> <div class="animate-in fade-in mt-12 mb-8 flex flex-wrap gap-2 duration-1000"> <a href="/tags/random" class="group flex items-center gap-1.5 rounded-xl border border-border/50 bg-muted/30 px-3 py-1.5 transition-all hover:border-primary/40 hover:bg-card"> <span class="font-mono text-xs text-primary/40 italic group-hover:text-primary">
+#
+</span> <span class="text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground"> Random </span> </a> </div> <!-- Navigation buttons --> <div class="animate-in fade-in mt-16 pt-12 border-t border-border/30 duration-1000"> <div class="grid grid-cols-2 gap-4"> <!-- Previous post --> <a href="/posts/smarthire/smarthire" class="group flex flex-col gap-2 rounded-lg border border-border/40 bg-muted/20 p-4 transition-all hover:border-primary/40 hover:bg-muted/40"> <div class="flex items-center gap-2 text-xs text-muted-foreground/80 group-hover:text-primary/60"> <svg width="16" height="16" viewBox="0 0 24 24" data-icon="mdi:arrow-left">   <use href="#ai:mdi:arrow-left"></use>  </svg> <span>上一篇</span> </div> <h3 class="font-semibold text-foreground group-hover:text-primary line-clamp-2"> HackTheBox Machine SmartHire </h3> <span class="text-xs text-muted-foreground/70"> 2026.05.18 </span> </a> <!-- Next post --> <a href="/posts/reactor/reactor-writeup" class="group flex flex-col gap-2 rounded-lg border border-border/40 bg-muted/20 p-4 transition-all hover:border-primary/40 hover:bg-muted/40 text-right"> <div class="flex items-center justify-end gap-2 text-xs text-muted-foreground/80 group-hover:text-primary/60"> <span>下一篇</span> <svg width="16" height="16" data-icon="mdi:arrow-right">   <symbol id="ai:mdi:arrow-right" viewBox="0 0 24 24"><path fill="currentColor" d="M4 11v2h12l-5.5 5.5l1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5L16 11z"/></symbol><use href="#ai:mdi:arrow-right"></use>  </svg> </div> <h3 class="font-semibold text-foreground group-hover:text-primary line-clamp-2"> HackTheBox Machine Reactor </h3> <span class="text-xs text-muted-foreground/70"> 2026.05.25 </span> </a> </div> </div> </article>  </div> </main> <!-- Left Sidebar with TOC --> <aside class="order-2 flex w-full flex-col border-t border-border bg-muted/20 p-[1.5rem] md:order-1 md:w-[20%] md:border-t-0 md:border-r md:border-b-0 md:p-[2rem]" data-pagefind-ignore="all" data-astro-cid-zm77yjld> <div class="mb-6 flex items-center gap-4 md:mb-10 md:flex-col md:items-start md:gap-0"> <div class="group flex h-14 w-14 items-center justify-center rounded-full bg-muted text-lg font-bold text-primary-foreground md:h-16 md:w-16 cursor-pointer"> <img src="/laojun.jpg" loading="eager" alt="Site logo" decoding="async" fetchpriority="auto" width="50" height="50" class="rounded-full transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"> </div> <div class="md:mt-8"> <h1 data-pagefind-ignore class="text-lg font-bold tracking-tight text-foreground md:text-xl"> N0nome </h1> <p class="mt-2 hidden text-xs text-muted-foreground/70 md:block"> 红浪漫一点都不浪漫 </p> </div> </div> <!-- TOC Section -->  <details id="mobileToc" class="mt-[1.5rem] overflow-hidden rounded-[1.25rem] border border-border/60 bg-card/70 md:hidden" data-astro-cid-zm77yjld> <summary class="toc-summary flex cursor-pointer list-none items-center justify-between gap-[0.75rem] px-[1rem] py-[0.75rem] text-[0.875rem] font-bold tracking-tight text-foreground/90" data-astro-cid-zm77yjld> <span class="flex items-center gap-[0.75rem]" data-astro-cid-zm77yjld> <span class="flex w-[1rem] flex-col gap-[0.25rem] opacity-60" data-astro-cid-zm77yjld> <span class="h-[0.09375rem] w-[1rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> <span class="h-[0.09375rem] w-[0.75rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> <span class="h-[0.09375rem] w-[1rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> </span> <span data-astro-cid-zm77yjld>Table of Contents</span> </span> <span class="toc-summary-icon text-[0.875rem] text-muted-foreground/70" data-astro-cid-zm77yjld>⌄</span> </summary> <nav class="custom-scrollbar max-h-[40vh] overflow-y-auto border-t border-border/50 px-[0.75rem] py-[0.75rem]" data-astro-cid-zm77yjld> <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="mb-[0.75rem] w-full rounded-[0.75rem] px-[1rem] py-[0.625rem] text-[0.8125rem] font-bold text-foreground/80 transition-all duration-300 hover:bg-primary/5 hover:text-primary" data-astro-cid-zm77yjld>
+↑ Back to Top
+</button> <div class="flex flex-col gap-[0.25rem]" data-astro-cid-zm77yjld> <a href="#1-总览问题全景" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="1-总览问题全景" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 1. 总览：问题全景 </a><a href="#2-p1方向偏执--agent-陷入-ssh-死循环" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="2-p1方向偏执--agent-陷入-ssh-死循环" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 2. P1：方向偏执 — Agent 陷入 SSH 死循环 </a><a href="#现象" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="现象" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 现象 </a><a href="#根因" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="根因" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 根因 </a><a href="#改进方案" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 改进方案 </a><a href="#3-p2explore-全量超时--执行模型的浪费" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="3-p2explore-全量超时--执行模型的浪费" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 3. P2：Explore 全量超时 — 执行模型的浪费 </a><a href="#数据" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="数据" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 数据 </a><a href="#根因-1" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="根因-1" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 根因 </a><a href="#改进方案-1" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案-1" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 改进方案 </a><a href="#4-p3reason-json-解析失败" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="4-p3reason-json-解析失败" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 4. P3：Reason JSON 解析失败 </a><a href="#现象-1" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="现象-1" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 现象 </a><a href="#根因-2" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="根因-2" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 根因 </a><a href="#改进方案-2" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案-2" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 改进方案 </a><a href="#5-p4并行-intents-冗余--web-分析四重奏" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="5-p4并行-intents-冗余--web-分析四重奏" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 5. P4：并行 Intents 冗余 — Web 分析四重奏 </a><a href="#现象-2" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="现象-2" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 现象 </a><a href="#根因-3" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="根因-3" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 根因 </a><a href="#改进方案-3" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案-3" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 改进方案 </a><a href="#6-p5bootstrap-效率低" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="6-p5bootstrap-效率低" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 6. P5：Bootstrap 效率低 </a><a href="#现象-3" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="现象-3" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 现象 </a><a href="#改进方案-4" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案-4" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 改进方案 </a><a href="#7-p6事实噪音累积" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="7-p6事实噪音累积" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 7. P6：事实噪音累积 </a><a href="#现象-4" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="现象-4" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 现象 </a><a href="#改进方案-5" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案-5" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 改进方案 </a><a href="#8-综合优化配置" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="8-综合优化配置" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 8. 综合优化配置 </a><a href="#预期效果估算" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="预期效果估算" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 预期效果估算 </a><a href="#9-实施优先级" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="9-实施优先级" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 9. 实施优先级 </a><a href="#10-对-cairn-架构的启发" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="10-对-cairn-架构的启发" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 10. 对 Cairn 架构的启发 </a><a href="#11-实施状态2026-05-24" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="11-实施状态2026-05-24" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 11. 实施状态（2026-05-24） </a><a href="#改动详情" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改动详情" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 改动详情 </a><a href="#预期效果" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="预期效果" data-mobile-toc-link="true" data-astro-cid-zm77yjld> 预期效果 </a> </div> </nav> </details> <div class="mt-[2rem] hidden flex-1 md:flex md:flex-col" data-astro-cid-zm77yjld> <div class="mb-[1rem] flex items-center gap-[0.75rem]" data-astro-cid-zm77yjld> <div class="flex w-[1rem] flex-col gap-[0.25rem] opacity-60" data-astro-cid-zm77yjld> <span class="h-[0.09375rem] w-[1rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> <span class="h-[0.09375rem] w-[0.75rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> <span class="h-[0.09375rem] w-[1rem] rounded-full bg-primary" data-astro-cid-zm77yjld></span> </div> <span class="text-[0.875rem] font-bold tracking-tight text-foreground/90" data-astro-cid-zm77yjld> Table of Contents </span> </div> <nav class="custom-scrollbar max-h-[60vh] overflow-y-auto" data-astro-cid-zm77yjld> <button onclick="document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' })" class="mb-[0.75rem] w-full rounded-[0.75rem] px-[1rem] py-[0.625rem] text-[0.8125rem] font-bold text-foreground/80 transition-all duration-300 hover:bg-primary/5 hover:text-primary" data-astro-cid-zm77yjld>
+↑ Back to Top
+</button> <div class="flex flex-col gap-[0.25rem]" data-astro-cid-zm77yjld> <a href="#1-总览问题全景" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="1-总览问题全景" data-astro-cid-zm77yjld> 1. 总览：问题全景 </a><a href="#2-p1方向偏执--agent-陷入-ssh-死循环" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="2-p1方向偏执--agent-陷入-ssh-死循环" data-astro-cid-zm77yjld> 2. P1：方向偏执 — Agent 陷入 SSH 死循环 </a><a href="#现象" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="现象" data-astro-cid-zm77yjld> 现象 </a><a href="#根因" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="根因" data-astro-cid-zm77yjld> 根因 </a><a href="#改进方案" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案" data-astro-cid-zm77yjld> 改进方案 </a><a href="#3-p2explore-全量超时--执行模型的浪费" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="3-p2explore-全量超时--执行模型的浪费" data-astro-cid-zm77yjld> 3. P2：Explore 全量超时 — 执行模型的浪费 </a><a href="#数据" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="数据" data-astro-cid-zm77yjld> 数据 </a><a href="#根因-1" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="根因-1" data-astro-cid-zm77yjld> 根因 </a><a href="#改进方案-1" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案-1" data-astro-cid-zm77yjld> 改进方案 </a><a href="#4-p3reason-json-解析失败" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="4-p3reason-json-解析失败" data-astro-cid-zm77yjld> 4. P3：Reason JSON 解析失败 </a><a href="#现象-1" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="现象-1" data-astro-cid-zm77yjld> 现象 </a><a href="#根因-2" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="根因-2" data-astro-cid-zm77yjld> 根因 </a><a href="#改进方案-2" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案-2" data-astro-cid-zm77yjld> 改进方案 </a><a href="#5-p4并行-intents-冗余--web-分析四重奏" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="5-p4并行-intents-冗余--web-分析四重奏" data-astro-cid-zm77yjld> 5. P4：并行 Intents 冗余 — Web 分析四重奏 </a><a href="#现象-2" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="现象-2" data-astro-cid-zm77yjld> 现象 </a><a href="#根因-3" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="根因-3" data-astro-cid-zm77yjld> 根因 </a><a href="#改进方案-3" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案-3" data-astro-cid-zm77yjld> 改进方案 </a><a href="#6-p5bootstrap-效率低" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="6-p5bootstrap-效率低" data-astro-cid-zm77yjld> 6. P5：Bootstrap 效率低 </a><a href="#现象-3" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="现象-3" data-astro-cid-zm77yjld> 现象 </a><a href="#改进方案-4" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案-4" data-astro-cid-zm77yjld> 改进方案 </a><a href="#7-p6事实噪音累积" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="7-p6事实噪音累积" data-astro-cid-zm77yjld> 7. P6：事实噪音累积 </a><a href="#现象-4" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="现象-4" data-astro-cid-zm77yjld> 现象 </a><a href="#改进方案-5" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改进方案-5" data-astro-cid-zm77yjld> 改进方案 </a><a href="#8-综合优化配置" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="8-综合优化配置" data-astro-cid-zm77yjld> 8. 综合优化配置 </a><a href="#预期效果估算" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="预期效果估算" data-astro-cid-zm77yjld> 预期效果估算 </a><a href="#9-实施优先级" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="9-实施优先级" data-astro-cid-zm77yjld> 9. 实施优先级 </a><a href="#10-对-cairn-架构的启发" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="10-对-cairn-架构的启发" data-astro-cid-zm77yjld> 10. 对 Cairn 架构的启发 </a><a href="#11-实施状态2026-05-24" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary text-[0.8125rem] font-bold text-foreground/80" data-heading="11-实施状态2026-05-24" data-astro-cid-zm77yjld> 11. 实施状态（2026-05-24） </a><a href="#改动详情" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="改动详情" data-astro-cid-zm77yjld> 改动详情 </a><a href="#预期效果" class="toc-link relative rounded-[0.75rem] px-[1rem] py-[0.625rem] transition-all duration-300 hover:bg-primary/5 hover:text-primary ml-[1rem] text-[0.75rem] font-medium text-muted-foreground/80" data-heading="预期效果" data-astro-cid-zm77yjld> 预期效果 </a> </div> </nav> </div>  <!-- Reencrypt Button -->  <!-- Bottom Section --> <div class="mt-[2rem] border-t border-border/50 pt-[2rem] md:mt-auto md:border-t-0" data-astro-cid-zm77yjld> <a href="/posts" class="group mb-[1.5rem] flex items-center gap-[0.5rem] text-[0.875rem] text-muted-foreground hover:text-primary" data-astro-cid-zm77yjld> <span class="transition-transform group-hover:-translate-x-1" data-astro-cid-zm77yjld> <svg width="0.875rem" height="0.875rem" data-astro-cid-zm77yjld="true" data-icon="mdi:arrow-left">   <symbol id="ai:mdi:arrow-left" viewBox="0 0 24 24"><path fill="currentColor" d="M20 11v2H8l5.5 5.5l-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5L8 11z"/></symbol><use href="#ai:mdi:arrow-left"></use>  </svg> </span> Back to posts </a> <div class="flex items-center justify-between" data-astro-cid-zm77yjld> <div class="flex gap-[1rem] text-muted-foreground/80" data-astro-cid-zm77yjld> <a href="https://github.com/n0nome" class="cursor-pointer transition-colors hover:text-primary" aria-label="GitHub" data-astro-cid-zm77yjld> <svg width="1.25rem" height="1.25rem" data-astro-cid-zm77yjld="true" data-icon="mdi:github">   <symbol id="ai:mdi:github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></symbol><use href="#ai:mdi:github"></use>  </svg> </a><a href="ejgreen.wansh@gmail.com" class="cursor-pointer transition-colors hover:text-primary" aria-label="Email" data-astro-cid-zm77yjld> <svg width="1.25rem" height="1.25rem" data-astro-cid-zm77yjld="true" data-icon="mdi:email">   <symbol id="ai:mdi:email" viewBox="0 0 24 24"><path fill="currentColor" d="m20 8l-8 5l-8-5V6l8 5l8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></symbol><use href="#ai:mdi:email"></use>  </svg> </a> </div> <button id="theme-toggle" class="relative flex h-6 w-10 items-center rounded-full bg-muted p-1" title="theme toggle"> <div class="h-4 w-4 translate-x-0 rounded-full bg-background shadow-sm dark:translate-x-4"></div> </button> <script>
+  function applyTheme() {
+    const theme = (() => {
+      const localStorageTheme = localStorage?.getItem("theme") ?? "";
+      if (["dark", "light"].includes(localStorageTheme)) {
+        return localStorageTheme;
+      }
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "dark";
+      }
+      return "light";
+    })();
+
+    if (theme === "light") {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+
+    window.localStorage.setItem("theme", theme || "dark");
+  }
+
+  function attachThemeToggleListeners() {
+    const handleToggleClick = () => {
+      const element = document.documentElement;
+      element.classList.toggle("dark");
+
+      const isDark = element.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    };
+
+    // 获取所有 theme-toggle 按钮并移除旧的监听器
+    document.querySelectorAll("#theme-toggle").forEach((button) => {
+      // 克隆节点以移除所有旧的事件监听器
+      const newButton = button.cloneNode(true);
+      button.parentNode.replaceChild(newButton, button);
+
+      // 添加新的事件监听器
+      newButton.addEventListener("click", handleToggleClick);
+    });
+  }
+
+  function initThemeToggle() {
+    applyTheme();
+    attachThemeToggleListeners();
+  }
+
+  // 页面加载时初始化
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initThemeToggle);
+  } else {
+    initThemeToggle();
+  }
+
+  // 页面切换时只重新应用主题和监听器
+  document.addEventListener("astro:after-swap", initThemeToggle);
+</script> </div> </div> </aside> </div>  <script defer></script> </body></html> <script type="module" src="/_astro/ArticleLayout.astro_astro_type_script_index_0_lang.DBzzbuGd.js"></script>  
